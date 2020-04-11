@@ -28,9 +28,10 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.imageLoading = true;
+    /*
     this.userSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
-    });
+    });*/
   }
 
   public onAddToCart() {
@@ -42,6 +43,6 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    //this.userSubscription.unsubscribe();
   }
 }

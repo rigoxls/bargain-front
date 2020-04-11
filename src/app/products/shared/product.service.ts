@@ -47,11 +47,31 @@ export class ProductService {
     };
   }
 
-  public getProducts(): Observable<Product[]> {
-    return this.angularFireDatabase
-      .list<Product>('products', (ref) => ref.orderByChild('date'))
-      .valueChanges()
-      .pipe(map((arr) => arr.reverse()), catchError(this.handleError<Product[]>(`getProducts`)));
+  async getProduct(id: any): Promise<any> {
+    const product = await this.http.get<any>(`${config.backUrl}product/${id}`).toPromise();
+
+    return {
+      id: product.Id,
+      name: product.Name,
+      description: product.Description,
+      price: product.Price,
+      idCatalogue: product.Id_Catalogue,
+      imageURLs: product.Image.replace('/', '%2F')
+    };
+  }
+
+  public async getProducts(): Promise<Product[]> {
+    const products = await this.http.get<any>(`${config.backUrl}product`).toPromise();
+    return products.map(product => {
+      return {
+        id: product.Id,
+        name: product.Name,
+        description: product.Description,
+        price: product.Price,
+        idCatalogue: product.Id_Catalogue,
+        imageURLs: product.Image.replace('/', '%2F')
+      };
+    });
   }
 
   public getProductsQuery(
@@ -116,18 +136,6 @@ export class ProductService {
           }
         ),
         catchError(this.handleError<Product[]>(`getFeaturedProducts`)));
-  }
-
-  async getProduct(id: any): Promise<any> {
-    const product = await this.http.get<any>(`${config.backUrl}product/${id}`).toPromise();
-
-    return {
-      name: product.Name,
-      description: product.Description,
-      price: product.Price,
-      idCatalogue: product.Id_Catalogue,
-      imageURLs: product.Image.replace('/', '%2F')
-    };
   }
 
   public updateProduct(data: { product: Product; files: FileList }) {

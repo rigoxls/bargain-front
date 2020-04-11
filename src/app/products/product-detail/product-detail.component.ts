@@ -1,19 +1,19 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Params } from '@angular/router';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Params} from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { AuthService } from '../../account/shared/auth.service';
-import { CartService } from '../../cart/shared/cart.service';
-import { CartItem } from '../../models/cart-item.model';
-import { ProductsCacheService } from '../shared/products-cache.service';
-import { ProductService } from '../shared/product.service';
+import {AuthService} from '../../account/shared/auth.service';
+import {CartService} from '../../cart/shared/cart.service';
+import {CartItem} from '../../models/cart-item.model';
+import {ProductsCacheService} from '../shared/products-cache.service';
+import {ProductService} from '../shared/product.service';
 
-import { Product } from '../../models/product.model';
-import { User } from '../../models/user.model';
+import {Product} from '../../models/product.model';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -45,14 +45,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private productsCacheService: ProductsCacheService,
     private productService: ProductService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
+
+    /*
     this.authService.user
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((user) => {
         this.user = user;
-      });
+      });*/
 
     this.ratingValues = [1, 2, 3, 4, 5];
     this.selectedQuantity = 1;
@@ -65,25 +68,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getProduct(): void {
+  private async getProduct() {
     this.productLoading = true;
 
     const id = +this.route.snapshot.paramMap.get('id');
+    this.product = await this.productService.getProduct(id);
+    this.setupProduct();
+    this.productLoading = false;
 
-    // TODO RIGO
-/*
-    this.productService
-      .getProduct(id)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((product: Product) => {
-        if (product) {
-          this.product = product;
-          this.setupProduct();
-          this.productLoading = false;
-        } else {
-          this.router.navigate(['/404-product-not-found']);
-        }
-      });*/
+    if (!this.product) {
+      this.router.navigate(['/404-product-not-found']);
+    }
   }
 
   public onSelectThumbnail(event, index) {
