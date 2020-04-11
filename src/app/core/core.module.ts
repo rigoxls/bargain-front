@@ -15,7 +15,6 @@ import { MessageService } from '../messages/message.service';
 import { CartService } from '../cart/shared/cart.service';
 import { PagerService } from '../pager/pager.service';
 import { OrderService } from '../account/orders/shared/order.service';
-import { CheckoutService } from '../checkout/shared/checkout.service';
 import { AuthService } from '../account/shared/auth.service';
 import { OffcanvasService } from './shared/offcanvas.service';
 import { PromoService } from './shared/promo.service';
@@ -53,7 +52,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         CartService,
         PagerService,
         OrderService,
-        CheckoutService,
         AuthService,
         OffcanvasService,
         PromoService,

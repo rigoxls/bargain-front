@@ -7,7 +7,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductsModule } from './products/products.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { CheckoutModule } from './checkout/checkout.module';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';
 import { AngularFireModule } from 'angularfire2';
@@ -39,7 +38,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ToastrModule.forRoot(),
     CoreModule,
     ProductsModule,
-    CheckoutModule,
     AccountModule,
     AdminModule
   ],

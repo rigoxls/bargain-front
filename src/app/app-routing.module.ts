@@ -5,14 +5,12 @@ import { CartComponent } from './cart/cart.component';
 import { AddEditComponent } from './admin/add-edit/add-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminGuard } from './admin/shared/admin.guard';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { RegisterLoginComponent } from './account/register-login/register-login.component';
 import { OrdersComponent } from './account/orders/orders.component';
 import { ProfileComponent } from './account/profile/profile.component';
 import { AccountComponent } from './account/account.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
-import { CompleteComponent } from './checkout/complete/complete.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/register-login', pathMatch: 'full' },
@@ -25,7 +23,6 @@ const routes: Routes = [
     component: AddEditComponent,
     canActivate: [AdminGuard]
   },
-  { path: 'checkout', component: CheckoutComponent },
   { path: 'register-login', component: RegisterLoginComponent },
   {
     path: 'account',
@@ -36,7 +33,6 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent }
     ]
   },
-  { path: 'order-complete', component: CompleteComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
