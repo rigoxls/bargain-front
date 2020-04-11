@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 
-import { CartService } from './shared/cart.service';
-import { CartItem } from '../models/cart-item.model';
+import {CartService} from './shared/cart.service';
+import {CartItem} from '../models/cart-item.model';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +15,8 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: CartItem[];
   public total: number;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) {
+  }
 
   ngOnInit() {
     this.items = this.cartService.getItems();
@@ -54,6 +55,10 @@ export class CartComponent implements OnInit, OnDestroy {
       item,
       item.amount < 1 || !item.amount || isNaN(item.amount) ? 1 : item.amount
     );
+  }
+
+  public sendRequest(): void {
+    this.cartService.sendRequest();
   }
 
   ngOnDestroy() {

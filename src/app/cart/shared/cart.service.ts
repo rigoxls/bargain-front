@@ -1,7 +1,10 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Product } from '../../models/product.model';
-import { CartItem } from '../../models/cart-item.model';
-import { MessageService } from '../../messages/message.service';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Product} from '../../models/product.model';
+import {CartItem} from '../../models/cart-item.model';
+import {MessageService} from '../../messages/message.service';
+import {config} from '../../shared/config';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class CartService {
@@ -9,7 +12,10 @@ export class CartService {
   private cartItems: CartItem[];
   public itemsChanged: EventEmitter<CartItem[]> = new EventEmitter<CartItem[]>();
 
-  constructor(private messageService: MessageService) {
+  constructor(
+    private messageService: MessageService,
+    private router: Router,
+    private http: HttpClient) {
     this.cartItems = [];
   }
 
@@ -17,13 +23,11 @@ export class CartService {
     return this.cartItems.slice();
   }
 
-  // Get Product ids out of CartItem[] in a new array
   private getItemIds() {
     return this.getItems().map(cartItem => cartItem.product.id);
   }
 
   public addItem(item: CartItem) {
-    // If item is already in cart, add to the amount, otherwise push item into cart
     if (this.getItemIds().includes(item.product.id)) {
       this.cartItems.forEach(function (cartItem) {
         if (cartItem.product.id === item.product.id) {
@@ -73,6 +77,32 @@ export class CartService {
       total += cartItem.amount * cartItem.product.price;
     });
     return total;
+  }
+
+  async sendRequest() {
+    const items = this.getItems();
+    const products = [];
+
+    items.forEach(item => {
+      products.push({
+        productId: item.product.id,
+        quantity: item.amount
+      });
+    });
+
+    const formData = {
+      userId: 1, //TODO RIGO
+      status: 'PENDING',
+      products
+    };
+
+    await this.http.post<any>(`${config.backUrl}request`, formData).subscribe(data => {
+        this.messageService.add('Se ha enviado su cotización a los proveedores registrados');
+      },
+      error => {
+        this.messageService.addError(error.error.message);
+        throw Error('Error');
+      });
   }
 
 }
