@@ -63,8 +63,8 @@ export class RegisterLoginComponent implements OnInit {
       this.registerForm.controls.password.setErrors({password: true});
       this.registerForm.controls.confirmPassword.setErrors({confirmPassword: true});
     } else {
-      // this.messageService.add('Account created successfully. Please login with your new credentials!');
       this.authenticationService.emailSignUp(this.registerForm.value);
+      this.registerForm.reset();
     }
   }
 
