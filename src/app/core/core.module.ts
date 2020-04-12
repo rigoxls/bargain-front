@@ -7,7 +7,6 @@ import { HeaderComponent } from './header/header.component';
 import { NavigationOffCanvasComponent } from './navigation-off-canvas/navigation-off-canvas.component';
 import { FooterComponent } from './content/footer/footer.component';
 import { NavigationMainComponent } from './header/navigation-main/navigation-main.component';
-import { ToolbarCartComponent } from './header/toolbar/cart/cart.component';
 import { SearchComponent } from './header/search/search.component';
 
 import { ProductService } from '../products/shared/product.service';
@@ -31,7 +30,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         NavigationOffCanvasComponent,
         FooterComponent,
         NavigationMainComponent,
-        ToolbarCartComponent,
         SearchComponent
     ],
     imports: [
