@@ -1,23 +1,31 @@
 import {Injectable} from '@angular/core';
-
-import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MessageService} from '../../messages/message.service';
-import {User, Roles} from '../../models/user.model';
 
 import {config} from '../../shared/config';
+import {logger} from 'codelyzer/util/logger';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  public user: any;
+  public userSubject: Subject<any> = new Subject<any>();
+  public user: Observable<any> = this.userSubject.asObservable();
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private messageService: MessageService
   ) {
-    this.user = null;
+    try {
+      setTimeout( () => {
+        this.userSubject.next(JSON.parse(atob(localStorage.getItem('user'))));
+      }, 1000);
+
+    } catch (e) {
+      logger.error(e);
+    }
+
   }
 
   async emailSignUp(formData) {
@@ -38,7 +46,7 @@ export class AuthService {
     };
     await this.http.post<any>(`${config.backUrl}auth/signin`, formData).subscribe(data => {
         this.messageService.add('Autenticación exitosa !');
-        this.user = data;
+        this.userSubject.next(data);
         localStorage.setItem('user', btoa(JSON.stringify(data)));
         return data;
       },
@@ -49,6 +57,7 @@ export class AuthService {
   }
 
   public signOut() {
-
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
   }
 }

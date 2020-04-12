@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 
-import { AuthService } from '../../account/shared/auth.service';
+import {AuthService} from '../../account/shared/auth.service';
 
-import { User } from '../../models/user.model';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -20,13 +20,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    /*
-    this.authSubscription = this.authService.user.subscribe((user) => {
-      this.user = user;
-    });*/
+    this.authSubscription = this.authService.user.subscribe(
+      user => {
+        this.user = user;
+      }
+    );
   }
 
   public onLogOut(e: Event) {

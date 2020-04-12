@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, OnChanges} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {
   FormGroup,
   ReactiveFormsModule,
@@ -8,26 +8,41 @@ import {
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {MessageService} from '../../messages/message.service';
 import {AuthService} from '../shared/auth.service';
+import {User} from '../../models/user.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-register-login',
   templateUrl: './register-login.component.html',
   styleUrls: ['./register-login.component.scss']
 })
-export class RegisterLoginComponent implements OnInit {
+export class RegisterLoginComponent implements OnInit, OnDestroy {
+  private authSubscription: Subscription;
   public loginForm: FormGroup;
   public registerForm: FormGroup;
   public registerErrors: string;
   private userType = null;
+  private user: User;
 
   constructor(
     private authenticationService: AuthService,
     private router: Router,
+    private authService: AuthService,
     private messageService: MessageService
   ) {
   }
 
   ngOnInit() {
+
+    this.authSubscription = this.authService.user.subscribe(
+      user => {
+        this.user = user;
+        if (this.user) {
+          this.router.navigate(['/register-login']);
+        }
+      }
+    );
+
     this.initLoginForm();
     this.initRegisterForm();
   }
@@ -70,7 +85,7 @@ export class RegisterLoginComponent implements OnInit {
 
   async onLogin() {
     const loginData = await this.authenticationService.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
-    this.router.navigate(['/provider/add']);
+    this.router.navigate(['/account/profile']);
   }
 
   userTypeEvent(type) {
@@ -90,5 +105,9 @@ export class RegisterLoginComponent implements OnInit {
       this.registerForm.controls['nit'].setValue('');
       this.registerForm.controls['representative'].setValue('');
     }
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 }

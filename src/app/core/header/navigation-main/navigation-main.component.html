@@ -2,7 +2,7 @@
 <nav class="site-menu">
     <ul>
         <li routerLinkActive="active">
-            <a routerLink="/home" href="">
+            <a routerLink="/" href="">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/product-images%2Fbargain.png?alt=media&token=de80e770-1836-4f73-bed9-64a967fab688"
                 width="150">
@@ -13,33 +13,33 @@
                 <span>Productos</span>
             </a>
         </li>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
             <a routerLink="/cart" href="">
                 <span>Mis Cotizaciones</span>
             </a>
         </li>
 
-      <li routerLinkActive="active">
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'CLIENT'">
         <a routerLink="/cart" href="">
           <span>Mis Ofertas</span>
         </a>
       </li>
 
-      <li routerLinkActive="active">
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'CLIENT'">
         <a routerLink="/cart" href="">
           <span>Ofertas</span>
         </a>
       </li>
 
-      <li routerLinkActive="active">
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'CLIENT'">
         <a routerLink="/cart" href="">
           <span>Estadisticas</span>
         </a>
       </li>
 
-        <li *ngIf="user && user.roles.admin" routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
             <a routerLink="/admin/add" href="">
-                <span>Add Product</span>
+                <span>Agregar producto</span>
             </a>
         </li>
     </ul>

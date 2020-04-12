@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {FormGroup, Validators, FormControl} from '@angular/forms';
 
-import { AuthService } from '../shared/auth.service';
+import {AuthService} from '../shared/auth.service';
 
-import { User } from '../../models/user.model';
-import { Subscription } from 'rxjs';
+import {User} from '../../models/user.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,20 +17,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public profileErrors: string;
   private user: User;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.initFormGroup();
     this.authSubscription = this.authService.user.subscribe(
       user => {
-        if (user) {
-          this.formProfile.patchValue({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
-          });
-          this.user = user;
-        }
+        this.user = user;
       }
     );
   }
@@ -56,12 +50,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.user.firstName !== this.formProfile.value.firstName || this.user.lastName !== this.formProfile.value.lastName) {
       //this.authService.updateProfile(this.formProfile.value);
     }
-/*
-    // Update password
-    if (this.formProfile.value.password && this.formProfile.value.confirmPassword
-      && (this.formProfile.value.password === this.formProfile.value.confirmPassword)) {
-      this.authService.updatePassword(this.formProfile.value.password);
-    }*/
+    /*
+        // Update password
+        if (this.formProfile.value.password && this.formProfile.value.confirmPassword
+          && (this.formProfile.value.password === this.formProfile.value.confirmPassword)) {
+          this.authService.updatePassword(this.formProfile.value.password);
+        }*/
   }
 
   ngOnDestroy() {
