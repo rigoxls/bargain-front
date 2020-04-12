@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {OrderService} from './shared/order.service';
+import {RequestService} from './shared/request.service';
 import {config} from '../../shared/config';
 import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs';
@@ -8,16 +8,16 @@ import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  templateUrl: './request.component.html',
+  styleUrls: ['./request.component.scss']
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class RequestComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription;
   private user: User;
   private requests: any;
 
   constructor(
-    public orderService: OrderService,
+    public orderService: RequestService,
     private authService: AuthService,
   ) {
   }

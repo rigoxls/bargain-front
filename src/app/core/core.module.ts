@@ -12,7 +12,7 @@ import { ProductService } from '../products/shared/product.service';
 import { MessageService } from '../messages/message.service';
 import { CartService } from '../cart/shared/cart.service';
 import { PagerService } from '../pager/pager.service';
-import { OrderService } from '../account/orders/shared/order.service';
+import { RequestService } from '../account/request/shared/request.service';
 import { AuthService } from '../account/shared/auth.service';
 import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
@@ -44,7 +44,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         MessageService,
         CartService,
         PagerService,
-        OrderService,
+        RequestService,
         AuthService,
         UiService
     ]

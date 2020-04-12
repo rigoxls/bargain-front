@@ -6,7 +6,7 @@ import {AddEditComponent} from './provider/add-edit/add-edit.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {ProviderGuard} from './provider/shared/provider.guard';
 import {RegisterLoginComponent} from './account/register-login/register-login.component';
-import {OrdersComponent} from './account/orders/orders.component';
+import {RequestComponent} from './account/request/request.component';
 import {ProfileComponent} from './account/profile/profile.component';
 import {AccountComponent} from './account/account.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
     component: AccountComponent,
     children: [
       {path: '', redirectTo: 'profile', pathMatch: 'full'},
-      {path: 'orders', component: OrdersComponent},
+      {path: 'requests', component: RequestComponent},
       {path: 'profile', component: ProfileComponent}
     ],
     canActivate: [LogguedGuard]

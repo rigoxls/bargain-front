@@ -4,7 +4,7 @@ import {config} from '../../../shared/config';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class OrderService {
+export class RequestService {
   constructor(
     private messageService: MessageService,
     private http: HttpClient

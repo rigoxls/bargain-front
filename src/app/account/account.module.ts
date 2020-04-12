@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 import { ProfileComponent } from './profile/profile.component';
-import { OrdersComponent } from './orders/orders.component';
+import { RequestComponent } from './request/request.component';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { AccountComponent } from './account.component';
 
@@ -13,7 +13,7 @@ import { AccountComponent } from './account.component';
     declarations: [
         AccountComponent,
         ProfileComponent,
-        OrdersComponent,
+        RequestComponent,
         RegisterLoginComponent
     ],
     imports: [

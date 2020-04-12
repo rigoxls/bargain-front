@@ -8,23 +8,21 @@
         <div class="user-cover" style="background-image: url(img/user-cover-img.jpg);">
         </div>
         <div class="user-info">
-          <!-- <div class="user-avatar">
-            <a class="edit-avatar" href="#"></a>
-            <img src="img/account/user-ava.jpg" alt="User">
-          </div> -->
           <div *ngIf="user" class="user-data">
             <h4>{{ user.firstName }} {{ user.lastName }}</h4>
-            <span>{{ user.email }} <span *ngIf="user.roles.admin">(Admin)</span></span>
+            <span>{{ user.email }} <span>(Admin)</span></span>
           </div>
         </div>
       </aside>
       <nav class="list-group">
+        <!--
         <a class="list-group-item" routerLinkActive="active" routerLink="/account/profile">
           <i class="icon-head"></i>Profile
         </a>
+        -->
 
-        <a class="list-group-item with-badge" routerLinkActive="active" routerLink="/account/orders" href="">
-          <i class="icon-bag"></i>Orders
+        <a class="list-group-item with-badge" routerLinkActive="active" routerLink="/account/requests" href="">
+          <i class="icon-bag"></i>Cotizaciones
         </a>
       </nav>
     </div>
