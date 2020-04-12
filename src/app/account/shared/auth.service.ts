@@ -18,8 +18,11 @@ export class AuthService {
     private messageService: MessageService
   ) {
     try {
-      setTimeout( () => {
-        this.userSubject.next(JSON.parse(atob(localStorage.getItem('user'))));
+      setTimeout(() => {
+        const userInfo = localStorage.getItem('user');
+        if (userInfo) {
+          this.userSubject.next(JSON.parse(atob(userInfo)));
+        }
       }, 1000);
 
     } catch (e) {
