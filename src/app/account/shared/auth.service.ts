@@ -23,7 +23,7 @@ export class AuthService {
         if (userInfo) {
           this.userSubject.next(JSON.parse(atob(userInfo)));
         }
-      }, 1000);
+      }, 50);
 
     } catch (e) {
       logger.error(e);
@@ -51,6 +51,7 @@ export class AuthService {
         this.messageService.add('Autenticación exitosa !');
         this.userSubject.next(data);
         localStorage.setItem('user', btoa(JSON.stringify(data)));
+        this.router.navigate(['/account/profile']);
         return data;
       },
       error => {

@@ -7,6 +7,7 @@ export class User {
   public photoURL?: string;
   public roles?: Roles;
   public firstName?: string;
+  public name?: string;
   public lastName?: string;
   public password?: string;
   public orders?: object;

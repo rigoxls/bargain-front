@@ -84,8 +84,7 @@ export class RegisterLoginComponent implements OnInit, OnDestroy {
   }
 
   async onLogin() {
-    const loginData = await this.authenticationService.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
-    this.router.navigate(['/account/profile']);
+    await this.authenticationService.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
   }
 
   userTypeEvent(type) {
