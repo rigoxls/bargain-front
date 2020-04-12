@@ -49,7 +49,9 @@ export class AuthService {
     };
     await this.http.post<any>(`${config.backUrl}auth/signin`, formData).subscribe(data => {
         this.messageService.add('Autenticación exitosa !');
-        this.userSubject.next(data);
+        setTimeout(() => {
+          this.userSubject.next(data);
+        }, 50);
         localStorage.setItem('user', btoa(JSON.stringify(data)));
         this.router.navigate(['/account/requests']);
         return data;

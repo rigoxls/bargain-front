@@ -22,11 +22,13 @@ export class RequestComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  async ngOnInit() {
+   ngOnInit() {
     this.authSubscription = this.authService.user.subscribe(
       user => {
         this.user = user;
-        this.getRequests(this.user.id);
+        if (this.user) {
+          this.getRequests(this.user.id);
+        }
       }
     );
   }
@@ -36,5 +38,6 @@ export class RequestComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 }
