@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../account/shared/auth.service';
-import { OffcanvasService } from '../shared/offcanvas.service';
 
 import { User } from '../../models/user.model';
 
@@ -21,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private offcanvasService: OffcanvasService
   ) {}
 
   ngOnInit() {
@@ -38,7 +36,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public onMenuToggle(e: Event) {
-    this.offcanvasService.openOffcanvasNavigation();
     e.preventDefault();
   }
 

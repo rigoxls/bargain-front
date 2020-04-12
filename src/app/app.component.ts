@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OffcanvasService } from './core/shared/offcanvas.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +8,5 @@ import { OffcanvasService } from './core/shared/offcanvas.service';
 export class AppComponent {
   public products: any;
 
-  constructor(public offcanvasService: OffcanvasService) {}
+  constructor() {}
 }

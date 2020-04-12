@@ -10,7 +10,7 @@ import {config} from '../../shared/config';
 
 @Injectable()
 export class AuthService {
-  public user: Observable<User>;
+  public user: any;
 
   constructor(
     private router: Router,

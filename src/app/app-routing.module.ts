@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import { AddEditComponent } from './provider/add-edit/add-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AdminGuard } from './provider/shared/admin.guard';
+import { ProviderGuard } from './provider/shared/provider.guard';
 import { RegisterLoginComponent } from './account/register-login/register-login.component';
 import { OrdersComponent } from './account/orders/orders.component';
 import { ProfileComponent } from './account/profile/profile.component';
@@ -17,11 +17,11 @@ const routes: Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'provider/add', component: AddEditComponent, canActivate: [AdminGuard] },
+  { path: 'provider/add', component: AddEditComponent, canActivate: [ProviderGuard] },
   {
     path: 'provider/edit/:id',
     component: AddEditComponent,
-    canActivate: [AdminGuard]
+    canActivate: [ProviderGuard]
   },
   { path: 'register-login', component: RegisterLoginComponent },
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [
-    AdminGuard,
+    ProviderGuard,
   ]
 })
 export class AppRoutingModule { }

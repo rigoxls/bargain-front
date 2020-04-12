@@ -10,14 +10,33 @@
         </li>
         <li routerLinkActive="active">
             <a routerLink="/products" href="">
-                <span>Products</span>
+                <span>Productos</span>
             </a>
         </li>
         <li routerLinkActive="active">
             <a routerLink="/cart" href="">
-                <span>Cart</span>
+                <span>Mis Cotizaciones</span>
             </a>
         </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/cart" href="">
+          <span>Mis Ofertas</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/cart" href="">
+          <span>Ofertas</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/cart" href="">
+          <span>Estadisticas</span>
+        </a>
+      </li>
+
         <li *ngIf="user && user.roles.admin" routerLinkActive="active">
             <a routerLink="/admin/add" href="">
                 <span>Add Product</span>
