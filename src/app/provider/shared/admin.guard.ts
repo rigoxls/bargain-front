@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate {
     return true;
     /*return this.authService.user.pipe(
       take(1),
-      map((user) => (user && user.roles.admin ? true : false)),
+      map((user) => (user && user.roles.provider ? true : false)),
       tap((authorized) => {
         if (!authorized) {
           this.router.navigate(['/register-login']);

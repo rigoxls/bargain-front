@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
-import { AddEditComponent } from './admin/add-edit/add-edit.component';
+import { AddEditComponent } from './provider/add-edit/add-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AdminGuard } from './admin/shared/admin.guard';
+import { AdminGuard } from './provider/shared/admin.guard';
 import { RegisterLoginComponent } from './account/register-login/register-login.component';
 import { OrdersComponent } from './account/orders/orders.component';
 import { ProfileComponent } from './account/profile/profile.component';
@@ -17,9 +17,9 @@ const routes: Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'admin/add', component: AddEditComponent, canActivate: [AdminGuard] },
+  { path: 'provider/add', component: AddEditComponent, canActivate: [AdminGuard] },
   {
-    path: 'admin/edit/:id',
+    path: 'provider/edit/:id',
     component: AddEditComponent,
     canActivate: [AdminGuard]
   },

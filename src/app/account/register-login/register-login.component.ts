@@ -70,7 +70,7 @@ export class RegisterLoginComponent implements OnInit {
 
   async onLogin() {
     const loginData = await this.authenticationService.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
-    this.router.navigate(['/admin/add']);
+    this.router.navigate(['/provider/add']);
   }
 
   userTypeEvent(type) {

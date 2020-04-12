@@ -8,7 +8,7 @@ import { ProductsModule } from './products/products.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AccountModule } from './account/account.module';
-import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './provider/admin.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
