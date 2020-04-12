@@ -3,6 +3,7 @@ export interface Roles {
 }
 
 export class User {
+  public id: number;
   public email: string;
   public photoURL?: string;
   public roles?: Roles;

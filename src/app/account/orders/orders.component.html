@@ -4,24 +4,20 @@
   <table class="table table-hover margin-bottom-none">
     <thead>
       <tr>
-        <th>Order #</th>
-        <th>Date Purchased</th>
-        <th>Status</th>
-        <th>Total</th>
+        <th>Cotización #</th>
+        <th>Fecha</th>
+        <th>Estado</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="requests">
 
-      <tr *ngFor="let order of orders">
+      <tr *ngFor="let request of requests">
         <td>
-          <a class="text-medium navi-link" href="#" data-toggle="modal" data-target="#orderDetails">{{order.number}}</a>
+          <a class="text-medium navi-link" href="#" data-toggle="modal" data-target="#orderDetails">{{request.id}}</a>
         </td>
-        <td>{{order.date | date:'mediumDate'}}</td>
+        <td>{{request.date | date:'mediumDate'}}</td>
         <td>
-          <span class="text-info">{{order.status || 'In Progress'}}</span>
-        </td>
-        <td>
-          <span class="text-medium">{{order.total | currency}}</span>
+          <span class="text-info">{{request.status}}</span>
         </td>
       </tr>
 
