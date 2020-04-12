@@ -16,7 +16,6 @@ import { PagerService } from '../pager/pager.service';
 import { OrderService } from '../account/orders/shared/order.service';
 import { AuthService } from '../account/shared/auth.service';
 import { OffcanvasService } from './shared/offcanvas.service';
-import { PromoService } from './shared/promo.service';
 import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
 
@@ -52,7 +51,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         OrderService,
         AuthService,
         OffcanvasService,
-        PromoService,
         UiService
     ]
 })

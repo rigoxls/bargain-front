@@ -38,7 +38,8 @@ export class AuthService {
     };
     await this.http.post<any>(`${config.backUrl}auth/signin`, formData).subscribe(data => {
         this.messageService.add('Autenticación exitosa !');
-        localStorage.setItem('accessToken', data.accessToken);
+        this.user = data;
+        localStorage.setItem('user', btoa(JSON.stringify(data)));
         return data;
       },
       error => {
@@ -48,26 +49,6 @@ export class AuthService {
   }
 
   public signOut() {
-
-  }
-
-  public updateProfile(userData: User) {
-
-  }
-
-  public updatePassword(password: string) {
-
-  }
-
-  public updateEmail(email: string) {
-
-  }
-
-  private updateNewUser(authData) {
-
-  }
-
-  private updateExistingUser(userData) {
 
   }
 }

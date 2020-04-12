@@ -49,19 +49,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     // Update Email
     if (this.user.email !== this.formProfile.value.email) {
-      this.authService.updateEmail(this.formProfile.value.email);
+      //this.authService.updateEmail(this.formProfile.value.email);
     }
 
     // Update Profile (Firstname, Lastname)
     if (this.user.firstName !== this.formProfile.value.firstName || this.user.lastName !== this.formProfile.value.lastName) {
-      this.authService.updateProfile(this.formProfile.value);
+      //this.authService.updateProfile(this.formProfile.value);
     }
-
+/*
     // Update password
     if (this.formProfile.value.password && this.formProfile.value.confirmPassword
       && (this.formProfile.value.password === this.formProfile.value.confirmPassword)) {
       this.authService.updatePassword(this.formProfile.value.password);
-    }
+    }*/
   }
 
   ngOnDestroy() {
