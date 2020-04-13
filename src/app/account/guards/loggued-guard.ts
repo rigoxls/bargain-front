@@ -5,8 +5,7 @@ import {
   RouterStateSnapshot,
   Router
 } from '@angular/router';
-import {AuthService} from '../../account/shared/auth.service';
-import {Subscription} from 'rxjs';
+import {AuthService} from '../shared/auth.service';
 
 @Injectable()
 export class LogguedGuard implements CanActivate {
