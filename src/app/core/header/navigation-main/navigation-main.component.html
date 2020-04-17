@@ -19,9 +19,15 @@
             </a>
         </li>
 
-      <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'CLIENT'">
         <a routerLink="/cart" href="">
-          <span>Mis Ofertas</span>
+          <span>Cotización Actual</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
+        <a routerLink="/provider/add" href="">
+          <span>Agregar producto</span>
         </a>
       </li>
 
@@ -31,16 +37,17 @@
         </a>
       </li>
 
+      <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
+        <a routerLink="/cart" href="">
+          <span>Mis Ofertas</span>
+        </a>
+      </li>
+
       <li routerLinkActive="active" *ngIf="user && user['role'] === 'ADMIN'">
         <a routerLink="/cart" href="">
           <span>Estadisticas</span>
         </a>
       </li>
 
-        <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
-            <a routerLink="/admin/add" href="">
-                <span>Agregar producto</span>
-            </a>
-        </li>
     </ul>
 </nav>

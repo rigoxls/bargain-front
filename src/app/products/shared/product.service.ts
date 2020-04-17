@@ -17,6 +17,7 @@ import {config} from '../../shared/config';
 @Injectable()
 export class ProductService {
   private productsUrl = ProductsUrl.productsUrl;
+  private user = null;
 
   constructor(
     private http: HttpClient,
@@ -25,6 +26,7 @@ export class ProductService {
     public authService: AuthService,
     private uploadService: FileUploadService,
   ) {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
   }
 
   /** Log a ProductService message with the MessageService */
@@ -32,12 +34,6 @@ export class ProductService {
     this.messageService.add('ProductService: ' + message);
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
@@ -74,22 +70,6 @@ export class ProductService {
     });
   }
 
-  public getProductsQuery(
-    byChild: string,
-    equalTo: string | boolean,
-    limitToFirst: number
-  ): Observable<Product[]> {
-    return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
-        ref
-          .orderByChild(byChild)
-          .equalTo(equalTo)
-          .limitToFirst(limitToFirst)
-      )
-      .valueChanges()
-      .pipe(catchError(this.handleError<Product[]>(`getProductsQuery`)));
-  }
-
   public findProducts(term): Observable<any> {
     return this.angularFireDatabase
       .list<Product>('products', (ref) =>
@@ -100,42 +80,6 @@ export class ProductService {
       )
       .valueChanges()
       .pipe(catchError(this.handleError<Product[]>(`getProductsQuery`)));
-  }
-
-  public getProductsByDate(limitToLast: number): Observable<Product[]> {
-    return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
-        ref.orderByChild('date').limitToLast(limitToLast)
-      )
-      .valueChanges()
-      .pipe(
-        map((arr) => arr.reverse()),
-        catchError(this.handleError<Product[]>(`getProductsByDate`))
-      );
-  }
-
-  public getFeaturedProducts(): Observable<any[]> {
-    return this.angularFireDatabase
-      .list<Product>('featured')
-      .snapshotChanges()
-      .pipe(
-        switchMap(
-          (actions) => {
-            return observableCombineLatest(
-              actions.map((action) => this.getProduct(action.key))
-            );
-          },
-          (actionsFromSource, resolvedProducts) => {
-            resolvedProducts.map((product, i) => {
-              product['imageFeaturedUrl'] = actionsFromSource[
-                i
-                ].payload.val().imageFeaturedUrl;
-              return product;
-            });
-            return resolvedProducts;
-          }
-        ),
-        catchError(this.handleError<Product[]>(`getFeaturedProducts`)));
   }
 
   public updateProduct(data: { product: Product; files: FileList }) {
@@ -199,6 +143,7 @@ export class ProductService {
           price: productToSave['price'],
           idCatalogue: productToSave['idCatalogue'],
           image: productToSave['imageRefs'][0],
+          userId: this.user.id
         };
         this.http.post<any>(`${config.backUrl}product`, formData).subscribe(response => {
             return response;

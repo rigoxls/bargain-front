@@ -12,9 +12,11 @@
     <h4 class="product-price"><app-price [product]="product"></app-price></h4>
     <p *ngIf="displayMode === 'list'" class="hidden-xs-down">{{product.description}}</p>
     <div class="product-buttons">
-      <button class="btn btn-outline-primary btn-sm" (click)="onAddToCart()">Agregar a Cotización</button>
-      <button *ngIf="user && user.roles.admin" class="btn btn-primary btn-sm" routerLink="/admin/edit/{{product.id}}">
-        Edit
+      <button class="btn btn-outline-primary btn-sm" (click)="onAddToCart()" *ngIf="user && user['role'] === 'CLIENT'">
+        Agregar a Cotización
+      </button>
+      <button *ngIf="user && user['role'] === 'PROVIDER'" class="btn btn-primary btn-sm" routerLink="/admin/edit/{{product.id}}">
+        Editar Producto
       </button>
     </div>
   </div>

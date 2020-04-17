@@ -10,7 +10,7 @@
           <div class="col-10">
             <input class="form-control form-control-square form-control-sm" formControlName="name" type="text" id="name" value="">
             <div *ngIf="!productForm.get('name').valid && productForm.get('name').touched" class="form-control-feedback">
-              Shucks, enter a name for your product.
+              <!-- validation message -->
             </div>
           </div>
         </div>
@@ -22,13 +22,13 @@
               <option [value]="catalogue.Id" *ngFor="let catalogue of catalogues">{{catalogue.Name}}</option>
             </select>
             <div *ngIf="!productForm.get('idCatalogue').valid && productForm.get('idCatalogue').touched" class="form-control-feedback">
-              Shucks, enter a name for your product.
+              <!-- validation message -->
             </div>
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label" for="description">Product description</label>
+          <label class="col-2 col-form-label" for="description">Descripción</label>
           <div class="col-10">
             <textarea class="form-control form-control-square form-control-sm" formControlName="description" id="description" rows="5">
             </textarea>
@@ -46,18 +46,18 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-10">
+          <div class="col-10" *ngIf="product.imageURLs.length">
             <img src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{product.imageURLs}}?alt=media" width="450">
           </div>
         </div>
 
 
         <div class="form-group row">
-          <label class="col-2 col-form-label" for="price">Actual Price</label>
+          <label class="col-2 col-form-label" for="price">Precio Actual</label>
           <div class="col-10">
             <input class="form-control form-control-square form-control-sm" formControlName="price" type="number" id="price" value="">
             <div *ngIf="!productForm.get('price').valid && productForm.get('price').touched" class="form-control-feedback">
-              Shucks, enter a price for your product.
+              <!-- validation message -->
             </div>
           </div>
         </div>
@@ -69,8 +69,8 @@
 
         <div class="row mb-5">
           <div class="col text-right">
-            <button [disabled]="(mode === 'add')" class="btn btn-danger" type="button" (click)="onDelete()">Delete Product</button>
-            <button [disabled]="productForm.invalid" class="btn btn-primary" type="submit">Save Changes</button>
+            <button [disabled]="(mode === 'add')" class="btn btn-danger" type="button" (click)="onDelete()">Eliminar Producto</button>
+            <button [disabled]="productForm.invalid" class="btn btn-primary" type="submit">Guardar Producto</button>
           </div>
         </div>
 

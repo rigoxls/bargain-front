@@ -9,6 +9,7 @@ import {AuthService} from '../../account/shared/auth.service';
 
 @Injectable()
 export class ProviderGuard implements CanActivate {
+  private user = null;
   constructor(private authService: AuthService, private router: Router) {
   }
 
@@ -16,7 +17,8 @@ export class ProviderGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.authService.user['role'] === 'PROVIDER') {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
+    if (this.user['role'] === 'PROVIDER') {
       return true;
     }
     this.router.navigate(['/register-login']);

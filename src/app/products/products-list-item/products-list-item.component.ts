@@ -24,14 +24,15 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
+  }
 
   ngOnInit() {
     this.imageLoading = true;
-    /*
     this.userSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
-    });*/
+    });
   }
 
   public onAddToCart() {
@@ -43,6 +44,6 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this.userSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }

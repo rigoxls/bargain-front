@@ -11,6 +11,7 @@ export class User {
   public name?: string;
   public lastName?: string;
   public password?: string;
+  public role: string;
   public orders?: object;
   public confirmPassword?: string;
   public uid?: string;
