@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {RequestService} from './shared/request.service';
-import {config} from '../../shared/config';
-import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../shared/auth.service';
+
 import {User} from '../../models/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -17,12 +17,17 @@ export class RequestComponent implements OnInit, OnDestroy {
   private requests: any;
 
   constructor(
-    public orderService: RequestService,
+    public requestService: RequestService,
     private authService: AuthService,
+    private router: Router,
   ) {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
+    if (this.user) {
+      this.getRequests(this.user.id);
+    }
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.authSubscription = this.authService.user.subscribe(
       user => {
         this.user = user;
@@ -34,7 +39,12 @@ export class RequestComponent implements OnInit, OnDestroy {
   }
 
   async getRequests(userId: number) {
-    this.requests = await this.orderService.getRequests(userId);
+    this.requests = await this.requestService.getRequests(userId);
+  }
+
+  feedCart(requestId) {
+    this.requestService.feedCart(requestId);
+    this.router.navigate(['/cart/true']);
   }
 
   ngOnDestroy() {

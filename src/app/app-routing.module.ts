@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'products', component: ProductsListComponent},
   {path: 'products/:id', component: ProductDetailComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'cart/:read', component: CartComponent},
   {path: 'provider/add', component: AddEditComponent, canActivate: [ProviderGuard]},
   {
     path: 'provider/edit/:id',

@@ -11,7 +11,7 @@
     </thead>
     <tbody *ngIf="requests">
 
-      <tr *ngFor="let request of requests">
+      <tr *ngFor="let request of requests" class="st-pointer" (click)="feedCart(request.id)">
         <td>
           <a class="text-medium navi-link" href="#" data-toggle="modal" data-target="#orderDetails">{{request.id}}</a>
         </td>

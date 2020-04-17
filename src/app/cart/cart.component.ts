@@ -1,9 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-
 import {Subscription} from 'rxjs';
-
 import {CartService} from './shared/cart.service';
 import {CartItem} from '../models/cart-item.model';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,8 +13,12 @@ export class CartComponent implements OnInit, OnDestroy {
   private cartSubscription: Subscription;
   public items: CartItem[];
   public total: number;
+  public readOnly = false;
 
-  constructor(private cartService: CartService) {
+  constructor(
+    private cartService: CartService,
+    private activatedRoute: ActivatedRoute) {
+    this.readOnly = this.activatedRoute.snapshot.params.read;
   }
 
   ngOnInit() {

@@ -5,11 +5,14 @@ import {MessageService} from '../../messages/message.service';
 import {config} from '../../shared/config';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {User} from '../../models/user.model';
 
 @Injectable()
 export class CartService {
   // Init and generate some fixtures
   private cartItems: CartItem[];
+  private user: User;
+
   public itemsChanged: EventEmitter<CartItem[]> = new EventEmitter<CartItem[]>();
 
   constructor(
@@ -27,24 +30,29 @@ export class CartService {
     return this.getItems().map(cartItem => cartItem.product.id);
   }
 
-  public addItem(item: CartItem) {
+  public addItem(item: CartItem, avoidMsg = false) {
     if (this.getItemIds().includes(item.product.id)) {
       this.cartItems.forEach(function (cartItem) {
         if (cartItem.product.id === item.product.id) {
           cartItem.amount += item.amount;
         }
       });
-      this.messageService.add('Amount in cart changed for: ' + item.product.name);
+
+      if (!avoidMsg) {
+        this.messageService.add('Amount in cart changed for: ' + item.product.name);
+      }
     } else {
       this.cartItems.push(item);
-      this.messageService.add('Added to cart: ' + item.product.name);
+      if (!avoidMsg) {
+        this.messageService.add('Added to cart: ' + item.product.name);
+      }
     }
     this.itemsChanged.emit(this.cartItems.slice());
   }
 
-  public addItems(items: CartItem[]) {
+  public addItems(items: CartItem[], avoidMsg = false) {
     items.forEach((cartItem) => {
-      this.addItem(cartItem);
+      this.addItem(cartItem, avoidMsg);
     });
   }
 
@@ -68,7 +76,6 @@ export class CartService {
   public clearCart() {
     this.cartItems = [];
     this.itemsChanged.emit(this.cartItems.slice());
-    this.messageService.add('Cleared cart');
   }
 
   public getTotal() {
@@ -80,6 +87,7 @@ export class CartService {
   }
 
   async sendRequest() {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
     const items = this.getItems();
     const products = [];
 
@@ -91,7 +99,7 @@ export class CartService {
     });
 
     const formData = {
-      userId: 1, //TODO RIGO
+      userId: this.user.id,
       status: 'PENDING',
       products
     };

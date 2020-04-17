@@ -11,7 +11,7 @@
                 <th class="text-center">Cantidad</th>
                 <!--<th class="text-center">Price</th>-->
                 <!--<th class="text-center">Subtotal</th>-->
-                <th class="text-right">
+                <th class="text-right" *ngIf="!readOnly">
                   <button class="btn btn-sm btn-outline-danger" (click)="onClearCart($event)">Limpiar lista</button>
                 </th>
               </tr>
@@ -47,7 +47,7 @@
                 </td>
                 <!--<td class="text-center text-lg text-medium"><app-price [product]="item.product"></app-price></td>-->
                 <!--<td class="text-center text-lg text-medium">{{ (item.product.price * item.amount) | currency }}</td>-->
-                <td class="text-right">
+                <td class="text-right" *ngIf="!readOnly">
                   <a class="remove-from-cart"
                     href="#"
                     data-toggle="tooltip"
@@ -78,11 +78,11 @@
         </div>
         -->
         <div class="shopping-cart-footer">
-          <div class="column">
+          <div class="column" *ngIf="!readOnly">
             <a class="btn btn-outline-secondary" routerLink="/products">
               <i class="icon-arrow-left"></i>&nbsp;Buscar productos</a>
           </div>
-          <div class="column">
+          <div class="column" *ngIf="!readOnly">
             <a class="btn btn-success" href="javascript:void(0)" (click)="sendRequest()">Enviar Cotización</a>
           </div>
         </div>
