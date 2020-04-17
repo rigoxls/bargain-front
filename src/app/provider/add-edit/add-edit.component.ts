@@ -20,7 +20,6 @@ export class DomainProduct extends Product {
   styleUrls: ['./add-edit.component.scss']
 })
 export class AddEditComponent implements OnInit, OnDestroy {
-  private productSubscription: Subscription;
   private formSubscription: Subscription;
   @ViewChild('photos', {static: true}) photos;
   public productForm: FormGroup;
@@ -155,12 +154,11 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   private updateProduct(product: Product, files?: FileList) {
-    this.productSubscription.unsubscribe();
     this.productService.updateProduct({product, files}).subscribe(
       (response: Product) => {
         this.router.navigate(['/products/' + response.id]);
       },
-      (error) => this.log.addError('Could not update your product')
+      (error) => this.log.addError('No se pudo actualizar el producto')
     );
   }
 

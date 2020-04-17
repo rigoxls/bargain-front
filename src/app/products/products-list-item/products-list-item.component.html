@@ -15,7 +15,7 @@
       <button class="btn btn-outline-primary btn-sm" (click)="onAddToCart()" *ngIf="user && user['role'] === 'CLIENT'">
         Agregar a Cotización
       </button>
-      <button *ngIf="user && user['role'] === 'PROVIDER'" class="btn btn-primary btn-sm" routerLink="/admin/edit/{{product.id}}">
+      <button *ngIf="user && user['role'] === 'PROVIDER'" class="btn btn-primary btn-sm" routerLink="/provider/edit/{{product.id}}">
         Editar Producto
       </button>
     </div>

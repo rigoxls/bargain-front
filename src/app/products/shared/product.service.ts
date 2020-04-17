@@ -92,18 +92,33 @@ export class ProductService {
     const dbOperation = this.uploadService
       .startUpload(data)
       .then((task) => {
-        data.product.imageURLs[0] = task.downloadURL;
-        data.product.imageRefs[0] = task.ref.fullPath;
+        data.product.imageURLs = [];
+        data.product.imageRefs = [];
+        data.product.imageURLs.push(task.downloadURL);
+        data.product.imageRefs.push(task.ref.fullPath);
+
+        const productToSave = data['product'];
+
+        const formData = {
+          name: productToSave['name'],
+          description: productToSave['description'],
+          price: productToSave['price'],
+          idCatalogue: productToSave['idCatalogue'],
+          image: productToSave['imageRefs'][0],
+          userId: this.user.id
+        };
+        this.http.post<any>(`${config.backUrl}product/${productToSave.id}`, formData).subscribe(response => {
+            return response;
+          },
+          error => {
+            this.messageService.addError(error.error.message);
+            throw Error('Error');
+          });
 
         return data;
       })
-      .then((dataWithImagePath) => {
-        return this.angularFireDatabase
-          .object<Product>(url)
-          .update(data.product);
-      })
       .then((response) => {
-        this.log(`Updated Product ${data.product.name}`);
+        this.log(`Producto actualizado ${data.product.name}`);
         return data.product;
       })
       .catch((error) => {
@@ -118,7 +133,7 @@ export class ProductService {
       .object<Product>(url)
       .update(product)
       .then((response) => {
-        this.log(`Updated Product ${product.name}`);
+        this.log(`Producto actualizado ${product.name}`);
         return product;
       })
       .catch((error) => {
@@ -156,12 +171,12 @@ export class ProductService {
         return data;
       }, (error) => error)
       .then((response) => {
-        this.log(`Added Product ${data.product.name}`);
+        this.log(`Producto agregado ${data.product.name}`);
         return data.product;
       })
       .catch((error) => {
         this.messageService.addError(
-          `Add Failed, Product ${data.product.name}`
+          `Error ${data.product.name}`
         );
         this.handleError(error);
         return error;
