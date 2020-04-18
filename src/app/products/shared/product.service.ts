@@ -26,7 +26,11 @@ export class ProductService {
     public authService: AuthService,
     private uploadService: FileUploadService,
   ) {
-    this.user = JSON.parse(atob(localStorage.getItem('user')));
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info('No User');
+    }
   }
 
   /** Log a ProductService message with the MessageService */
@@ -83,12 +87,6 @@ export class ProductService {
   }
 
   public updateProduct(data: { product: Product; files: FileList }) {
-    const url = `${this.productsUrl}/${data.product.id}`;
-
-    if (!data.files.length) {
-      return this.updateProductWithoutNewImage(data.product, url);
-    }
-
     const dbOperation = this.uploadService
       .startUpload(data)
       .then((task) => {
@@ -128,19 +126,26 @@ export class ProductService {
     return fromPromise(dbOperation);
   }
 
-  private updateProductWithoutNewImage(product: Product, url: string) {
-    const dbOperation = this.angularFireDatabase
-      .object<Product>(url)
-      .update(product)
-      .then((response) => {
-        this.log(`Producto actualizado ${product.name}`);
-        return product;
-      })
-      .catch((error) => {
-        this.handleError(error);
-        return error;
-      });
-    return fromPromise(dbOperation);
+  updateProductWithoutNewImage(product: Product) {
+    return new Promise((resolve, reject) => {
+      const productToSave = product;
+
+      const formData = {
+        name: productToSave['name'],
+        description: productToSave['description'],
+        price: productToSave['price'],
+        idCatalogue: productToSave['idCatalogue'],
+        image: productToSave['imageURLs'],
+        userId: this.user.id
+      };
+      return this.http.post<any>(`${config.backUrl}product/${productToSave.id}`, formData).subscribe(response => {
+          resolve(response);
+        },
+        error => {
+          this.messageService.addError(error.error.message);
+          reject(error);
+        });
+    });
   }
 
   public addProduct(data: { product: Product; files: FileList }) {

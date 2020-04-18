@@ -25,7 +25,11 @@ export class ProductsListItemComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private authService: AuthService
   ) {
-    this.user = JSON.parse(atob(localStorage.getItem('user')));
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info(e);
+    }
   }
 
   ngOnInit() {

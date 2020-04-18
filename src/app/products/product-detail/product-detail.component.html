@@ -28,8 +28,7 @@
 
           <p>{{product.description}}</p>
           <div class="row margin-top-1x">
-
-            <div class="col-sm-3">
+            <div class="col-sm-3" *ngIf="user && user['role'] === 'CLIENT'">
               <div class="form-group">
                 <label for="quantity">Cantidad</label>
                 <select class="form-control" id="quantity" (change)="onSelectQuantity($event)">
@@ -50,7 +49,7 @@
             <div class="entry-share mt-2 mb-2">
 
             </div>
-            <div class="sp-buttons mt-2 mb-2">
+            <div class="sp-buttons mt-2 mb-2" *ngIf="user && user['role'] === 'CLIENT'" >
               <button class="btn btn-primary" (click)="onAddToCart()">
                 <i class="icon-bag"></i> Agregar a Cotización
               </button>

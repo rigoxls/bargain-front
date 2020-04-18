@@ -154,12 +154,21 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   private updateProduct(product: Product, files?: FileList) {
-    this.productService.updateProduct({product, files}).subscribe(
-      (response: Product) => {
-        this.router.navigate(['/products/' + response.id]);
-      },
-      (error) => this.log.addError('No se pudo actualizar el producto')
-    );
+    if (!files.length) {
+      this.productService.updateProductWithoutNewImage(product).then((response: Product) => {
+          this.router.navigate(['/products/' + response['Id']]);
+        },
+        (error) => this.log.addError('No se pudo actualizar el producto')
+      );
+    } else {
+      this.productService.updateProduct({product, files}).subscribe(
+        (response: Product) => {
+          this.router.navigate(['/products/' + response.id]);
+        },
+        (error) => this.log.addError('No se pudo actualizar el producto')
+      );
+    }
+
   }
 
   public onDelete() {/*

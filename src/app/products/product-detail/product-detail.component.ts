@@ -46,17 +46,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private productsCacheService: ProductsCacheService,
     private productService: ProductService,
   ) {
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info(e);
+    }
   }
 
   ngOnInit(): void {
-
-    /*
-    this.authService.user
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((user) => {
-        this.user = user;
-      });*/
-
     this.ratingValues = [1, 2, 3, 4, 5];
     this.selectedQuantity = 1;
     this.imagesLoaded = [];

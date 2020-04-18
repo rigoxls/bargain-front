@@ -35,14 +35,14 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public uiService: UiService
   ) {
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info(e);
+    }
   }
 
-  ngOnInit() {/*
-    this.authService.user
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((user) => {
-        this.user = user;
-      });*/
+  ngOnInit() {
     this.uiService.currentPagingPage$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((page) => {
@@ -53,7 +53,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   async getProducts() {
     this.productsLoading = true;
-    this.products  = await this.productService.getProducts();
+    this.products = await this.productService.getProducts();
     this.setPage(this.currentPagingPage);
     this.productsLoading = false;
   }
