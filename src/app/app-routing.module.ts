@@ -12,6 +12,7 @@ import {AccountComponent} from './account/account.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {LogguedGuard} from './account/guards/loggued-guard';
+import {ProviderComponent} from './account/provider/provider.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/register-login', pathMatch: 'full'},
@@ -35,6 +36,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'profile', pathMatch: 'full'},
       {path: 'requests', component: RequestComponent},
+      {path: 'provider', component: ProviderComponent},
       {path: 'profile', component: ProfileComponent}
     ],
     canActivate: [LogguedGuard]

@@ -53,7 +53,12 @@ export class AuthService {
           this.userSubject.next(data);
         }, 50);
         localStorage.setItem('user', btoa(JSON.stringify(data)));
-        this.router.navigate(['/account/requests']);
+        if (data.role === 'CLIENT') {
+          this.router.navigate(['/account/requests']);
+        } else {
+          this.router.navigate(['/account/provider']);
+        }
+
         return data;
       },
       error => {

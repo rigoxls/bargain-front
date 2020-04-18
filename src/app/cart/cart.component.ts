@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {CartService} from './shared/cart.service';
 import {CartItem} from '../models/cart-item.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,11 +14,18 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: CartItem[];
   public total: number;
   public readOnly = false;
+  public user = null;
 
   constructor(
+    private router: Router,
     private cartService: CartService,
     private activatedRoute: ActivatedRoute) {
     this.readOnly = this.activatedRoute.snapshot.params.read;
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info(e);
+    }
   }
 
   ngOnInit() {
@@ -60,8 +67,21 @@ export class CartComponent implements OnInit, OnDestroy {
     );
   }
 
-  public sendRequest(): void {
-    this.cartService.sendRequest();
+  public updatePrice(item: CartItem, price) {
+    this.cartService.updateItemPrice(
+      item,
+      price.target.value
+    );
+  }
+
+  async sendRequest() {
+    await this.cartService.sendRequest();
+    this.router.navigate(['/account/requests']);
+  }
+
+  async sendOffer() {
+    await this.cartService.sendOffer();
+    this.router.navigate(['/account/provider']);
   }
 
   ngOnDestroy() {

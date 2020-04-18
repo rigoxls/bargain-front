@@ -16,8 +16,10 @@ import { RequestService } from '../account/request/shared/request.service';
 import { AuthService } from '../account/shared/auth.service';
 import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
+import {ProviderService} from '../account/provider/shared/provider.service';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         CartService,
         PagerService,
         RequestService,
+        ProviderService,
         AuthService,
         UiService
     ]

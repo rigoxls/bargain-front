@@ -1,0 +1,27 @@
+<div class="padding-top-2x mt-2 hidden-lg-up">
+</div>
+<div class="table-responsive">
+  <table class="table table-hover margin-bottom-none">
+    <thead>
+      <tr>
+        <th>Cotización #</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="requests">
+
+      <tr *ngFor="let request of requests" class="st-pointer" (click)="feedCart(request.id)">
+        <td>
+          <a class="text-medium navi-link" href="#" data-toggle="modal" data-target="#orderDetails">{{request.id}}</a>
+        </td>
+        <td>{{request.date | date:'mediumDate'}}</td>
+        <td>
+          <span class="text-info">{{request.status}}</span>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<hr>

@@ -9,9 +9,9 @@
               <tr>
                 <th>Producto</th>
                 <th class="text-center">Cantidad</th>
-                <!--<th class="text-center">Price</th>-->
-                <!--<th class="text-center">Subtotal</th>-->
-                <th class="text-right" *ngIf="!readOnly">
+                <th *ngIf="user && user['role'] === 'PROVIDER'" class="text-center">Price</th>
+                <th *ngIf="user && user['role'] === 'PROVIDER'" class="text-center">Subtotal</th>
+                <th class="text-right" *ngIf="!readOnly || user && user['role'] === 'PROVIDER'">
                   <button class="btn btn-sm btn-outline-danger" (click)="onClearCart($event)">Limpiar lista</button>
                 </th>
               </tr>
@@ -33,7 +33,10 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <div class="count-input">
+                  <div class="text-center text-lg text-medium" *ngIf="user && user['role'] === 'PROVIDER'">
+                    {{item.amount}}
+                  </div>
+                  <div class="count-input" *ngIf="user && user['role'] === 'CLIENT'">
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary" type="button" (click)="decreaseAmount(item)">-</button>
@@ -45,9 +48,14 @@
                     </div>
                   </div>
                 </td>
-                <!--<td class="text-center text-lg text-medium"><app-price [product]="item.product"></app-price></td>-->
-                <!--<td class="text-center text-lg text-medium">{{ (item.product.price * item.amount) | currency }}</td>-->
-                <td class="text-right" *ngIf="!readOnly">
+                <td *ngIf="user && user['role'] === 'PROVIDER'" class="text-center text-lg text-medium">
+                  <input type="text" [(ngModel)]="item.product.price" (blur)="updatePrice(item, $event)">
+                  <!--<app-price [product]="item.product"></app-price>-->
+                </td>
+                <td *ngIf="user && user['role'] === 'PROVIDER'" class="text-center text-lg text-medium">
+                  {{ (item.product.price * item.amount) | currency }}
+                </td>
+                <td class="text-right" *ngIf="!readOnly || user && user['role'] === 'PROVIDER'">
                   <a class="remove-from-cart"
                     href="#"
                     data-toggle="tooltip"
@@ -70,13 +78,13 @@
           </table>
         </div>
 
-        <!--
-        <div class="shopping-cart-footer">
+
+        <div class="shopping-cart-footer" *ngIf="user && user['role'] === 'PROVIDER'">
           <div class="column text-lg">Total:
             <span class="text-medium">{{ total | currency }}</span>
           </div>
         </div>
-        -->
+
         <div class="shopping-cart-footer">
           <div class="column" *ngIf="!readOnly">
             <a class="btn btn-outline-secondary" routerLink="/products">
@@ -84,6 +92,10 @@
           </div>
           <div class="column" *ngIf="!readOnly">
             <a class="btn btn-success" href="javascript:void(0)" (click)="sendRequest()">Enviar Cotización</a>
+          </div>
+
+          <div class="column" *ngIf="user && user['role'] === 'PROVIDER'">
+            <a class="btn btn-success" href="javascript:void(0)" (click)="sendOffer()">Enviar Oferta</a>
           </div>
         </div>
 

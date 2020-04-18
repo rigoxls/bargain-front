@@ -70,7 +70,15 @@ export class CartService {
       }
     });
     this.itemsChanged.emit(this.cartItems.slice());
-    this.messageService.add('Updated amount for: ' + item.product.name);
+  }
+
+  public updateItemPrice(item: CartItem, price: number) {
+    this.cartItems.forEach((cartItem) => {
+      if (cartItem.product.id === item.product.id) {
+        cartItem.product.price = price;
+      }
+    });
+    this.itemsChanged.emit(this.cartItems.slice());
   }
 
   public clearCart() {
@@ -106,6 +114,34 @@ export class CartService {
 
     await this.http.post<any>(`${config.backUrl}request`, formData).subscribe(data => {
         this.messageService.add('Se ha enviado su cotización a los proveedores registrados');
+      },
+      error => {
+        this.messageService.addError(error.error.message);
+        throw Error('Error');
+      });
+  }
+
+  async sendOffer() {
+    this.user = JSON.parse(atob(localStorage.getItem('user')));
+    const items = this.getItems();
+    const products = [];
+
+    items.forEach(item => {
+      products.push({
+        productId: item.product.id,
+        priceOffer: (item.amount * item.product.price)
+      });
+    });
+
+    const formData = {
+      userId: this.user.id,
+      requestId: localStorage.getItem('requestId'),
+      status: 'PENDING',
+      products
+    };
+
+    await this.http.post<any>(`${config.backUrl}offer`, formData).subscribe(data => {
+        this.messageService.add('Se ha enviado la oferta al cliente emisor');
       },
       error => {
         this.messageService.addError(error.error.message);
