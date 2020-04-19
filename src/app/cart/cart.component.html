@@ -9,9 +9,9 @@
               <tr>
                 <th>Producto</th>
                 <th class="text-center">Cantidad</th>
-                <th *ngIf="user && user['role'] === 'PROVIDER'" class="text-center">Price</th>
-                <th *ngIf="user && user['role'] === 'PROVIDER'" class="text-center">Subtotal</th>
-                <th class="text-right" *ngIf="!readOnly || user && user['role'] === 'PROVIDER'">
+                <th *ngIf="isOffer || isOfferRequest" class="text-center">Price</th>
+                <th *ngIf="isOffer || isOfferRequest" class="text-center">Subtotal</th>
+                <th class="text-right" *ngIf="isCart || isOffer">
                   <button class="btn btn-sm btn-outline-danger" (click)="onClearCart($event)">Limpiar lista</button>
                 </th>
               </tr>
@@ -32,11 +32,13 @@
                     </div>
                   </div>
                 </td>
+
+                <!-- cantidad -->
                 <td class="text-center">
-                  <div class="text-center text-lg text-medium" *ngIf="user && user['role'] === 'PROVIDER'">
+                  <div class="text-center text-lg text-medium" *ngIf="isRequest || isOfferRequest" >
                     {{item.amount}}
                   </div>
-                  <div class="count-input" *ngIf="user && user['role'] === 'CLIENT'">
+                  <div class="count-input" *ngIf="isOffer || isCart">
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary" type="button" (click)="decreaseAmount(item)">-</button>
@@ -48,14 +50,20 @@
                     </div>
                   </div>
                 </td>
-                <td *ngIf="user && user['role'] === 'PROVIDER'" class="text-center text-lg text-medium">
-                  <input type="text" [(ngModel)]="item.product.price" (blur)="updatePrice(item, $event)">
-                  <!--<app-price [product]="item.product"></app-price>-->
+
+                <!-- price -->
+                <td class="text-center text-lg text-medium" *ngIf="isOffer || isOfferRequest">
+                  <!-- price input -->
+                  <input type="text" *ngIf="isOffer" [(ngModel)]="item.product.price" (blur)="updatePrice(item, $event)">
+                  <!-- price text -->
+                  <app-price *ngIf="isOfferRequest"  [product]="item.product"></app-price>
                 </td>
-                <td *ngIf="user && user['role'] === 'PROVIDER'" class="text-center text-lg text-medium">
+                <td class="text-center text-lg text-medium" *ngIf="isOffer || isOfferRequest">
                   {{ (item.product.price * item.amount) | currency }}
                 </td>
-                <td class="text-right" *ngIf="!readOnly || user && user['role'] === 'PROVIDER'">
+
+                <!-- remove X -->
+                <td class="text-right" *ngIf="isOffer || isCart">
                   <a class="remove-from-cart"
                     href="#"
                     data-toggle="tooltip"
@@ -79,7 +87,7 @@
         </div>
 
 
-        <div class="shopping-cart-footer" *ngIf="user && user['role'] === 'PROVIDER'">
+        <div class="shopping-cart-footer" *ngIf="isOffer || isOfferRequest">
           <div class="column text-lg">Total:
             <span class="text-medium">{{ total | currency }}</span>
           </div>
@@ -90,12 +98,16 @@
             <a class="btn btn-outline-secondary" routerLink="/products">
               <i class="icon-arrow-left"></i>&nbsp;Buscar productos</a>
           </div>
-          <div class="column" *ngIf="!readOnly">
+          <div class="column" *ngIf="isCart">
             <a class="btn btn-success" href="javascript:void(0)" (click)="sendRequest()">Enviar Cotización</a>
           </div>
 
-          <div class="column" *ngIf="user && user['role'] === 'PROVIDER'">
+          <div class="column" *ngIf="isOffer">
             <a class="btn btn-success" href="javascript:void(0)" (click)="sendOffer()">Enviar Oferta</a>
+          </div>
+
+          <div class="column" *ngIf="isOfferRequest">
+            <a class="btn btn-success" href="javascript:void(0)" (click)="sendOffer()">Elegir Oferta</a>
           </div>
         </div>
 

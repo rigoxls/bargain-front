@@ -18,5 +18,11 @@ export class AccountComponent {
     private authService: AuthService,
     public router: Router,
     public orderService: RequestService
-  ) {}
+  ) {
+    try {
+      this.user = JSON.parse(atob(localStorage.getItem('user')));
+    } catch (e) {
+      console.info(e);
+    }
+  }
 }

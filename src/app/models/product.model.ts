@@ -9,5 +9,6 @@ export class Product {
     public idCatalogue: number = 0,
     public imageURLs: string[] = [],
     public imageRefs: string[] = [],
-  ) {}
+  ) {
+  }
 }

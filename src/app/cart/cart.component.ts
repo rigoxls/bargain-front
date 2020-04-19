@@ -14,13 +14,20 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: CartItem[];
   public total: number;
   public readOnly = false;
+  public isRequest = false;
+  public isOffer = false;
+  public isOfferRequest = false;
+  public isCart = false;
   public user = null;
 
   constructor(
     private router: Router,
     private cartService: CartService,
     private activatedRoute: ActivatedRoute) {
-    this.readOnly = this.activatedRoute.snapshot.params.read;
+    this.isOffer = this.activatedRoute.snapshot.params.isOffer;
+    this.isRequest = this.activatedRoute.snapshot.params.isRequest;
+    this.isOfferRequest = this.activatedRoute.snapshot.params.isOfferRequest;
+    this.isCart = (!this.isOffer && !this.isOfferRequest && !this.isRequest);
     try {
       this.user = JSON.parse(atob(localStorage.getItem('user')));
     } catch (e) {
@@ -82,6 +89,14 @@ export class CartComponent implements OnInit, OnDestroy {
   async sendOffer() {
     await this.cartService.sendOffer();
     this.router.navigate(['/account/provider']);
+  }
+
+  viewOfferRequest() {
+    if (this.user && (this.user['role'] === 'PROVIDER' || this.user['role'] === 'CLIENT')
+      && !this.readOnly) {
+      return true;
+    }
+    return false;
   }
 
   ngOnDestroy() {

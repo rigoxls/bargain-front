@@ -44,7 +44,7 @@ export class RequestComponent implements OnInit, OnDestroy {
 
   feedCart(requestId) {
     this.requestService.feedCart(requestId);
-    this.router.navigate(['/cart/true']);
+    this.router.navigate(['/client/request/true']);
   }
 
   ngOnDestroy() {

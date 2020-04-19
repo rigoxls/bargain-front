@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ProviderService} from './shared/provider.service';
+import {OfferService} from './shared/offer.service';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../shared/auth.service';
 
@@ -8,22 +8,22 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  templateUrl: './provider.component.html',
-  styleUrls: ['./provider.component.scss']
+  templateUrl: './offer.component.html',
+  styleUrls: ['./offer.component.scss']
 })
-export class ProviderComponent implements OnInit, OnDestroy {
+export class OfferComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription;
   private user: User;
   private requests: any;
 
   constructor(
-    public providerService: ProviderService,
+    public providerService: OfferService,
     private authService: AuthService,
     private router: Router,
   ) {
     this.user = JSON.parse(atob(localStorage.getItem('user')));
     if (this.user) {
-      this.getRequests();
+      this.getOffers();
     }
   }
 
@@ -32,19 +32,19 @@ export class ProviderComponent implements OnInit, OnDestroy {
       user => {
         this.user = user;
         if (this.user) {
-          this.getRequests();
+          this.getOffers();
         }
       }
     );
   }
 
-  async getRequests() {
-    this.requests = await this.providerService.getRequests();
+  async getOffers() {
+    this.requests = await this.providerService.getOffers();
   }
 
   feedCart(requestId) {
     this.providerService.feedCart(requestId);
-    this.router.navigate(['/provider/offer/true']);
+    this.router.navigate(['/client/offer/true']);
   }
 
   ngOnDestroy() {

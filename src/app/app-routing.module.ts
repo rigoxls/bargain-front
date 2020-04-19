@@ -7,19 +7,21 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {ProviderGuard} from './provider/shared/provider.guard';
 import {RegisterLoginComponent} from './account/register-login/register-login.component';
 import {RequestComponent} from './account/request/request.component';
-import {ProfileComponent} from './account/profile/profile.component';
 import {AccountComponent} from './account/account.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import {LogguedGuard} from './account/guards/loggued-guard';
 import {ProviderComponent} from './account/provider/provider.component';
+import {OfferComponent} from './account/offer/offer.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/register-login', pathMatch: 'full'},
   {path: 'products', component: ProductsListComponent},
   {path: 'products/:id', component: ProductDetailComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'cart/:read', component: CartComponent},
+  {path: 'provider/offer/:isOffer', component: CartComponent},
+  {path: 'client/request/:isRequest', component: CartComponent},
+  {path: 'client/offer/:isOfferRequest', component: CartComponent},
   {path: 'provider/add', component: AddEditComponent, canActivate: [ProviderGuard]},
   {
     path: 'provider/edit/:id',
@@ -34,10 +36,9 @@ const routes: Routes = [
     path: 'account',
     component: AccountComponent,
     children: [
-      {path: '', redirectTo: 'profile', pathMatch: 'full'},
       {path: 'requests', component: RequestComponent},
       {path: 'provider', component: ProviderComponent},
-      {path: 'profile', component: ProfileComponent}
+      {path: 'offer', component: OfferComponent},
     ],
     canActivate: [LogguedGuard]
   },
