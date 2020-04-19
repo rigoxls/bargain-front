@@ -1,6 +1,73 @@
 <div class="padding-top-2x mt-2 hidden-lg-up">
 </div>
-<div class="table-responsive">
-sdfasd4f56as4df65as4df6
+
+<div class="container padding-bottom-3x mb-2">
+  <div class="row">
+    <div class="col-md-8">
+      <form class="login-box" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <h3 class="margin-bottom-1x">Información de conexión al sistema de Bargain-online</h3>
+
+        <div class="alert alert-secondary" role="alert">
+          El sistema de Bargain-online permite la conexión de proveedores externos permitiéndoles exponer sus productos en nuestra plataforma,
+          la siguiente es la documentación del <b>API</b> de conexión:
+          <br>
+          <br>
+          <b>Integración con nuestro sistema Pub/Sub:</b>
+          <br>
+          Nuestro sistema utiliza un sistema de integración mediante RabbitMQ, el siguiente es un ejemplo de integración que puede acoplarse
+          a cualquier sistema.
+          <div class="alert alert-dark" role="alert">
+            <pre [innerHTML]="connectionPubSub"></pre>
+          </div>
+
+          <br>
+          <b> Catálogos disponibles: </b>
+          <br>
+          Los siguientes son los catálogos para se integrados en el payload de productos y servicios:
+          <br>
+          <div class="alert alert-light" role="alert">
+            <pre>
+    Id  Name
+    2	  Celulares y Teléfonos
+    3	  Computación
+    4	  Cámaras y Accesorios
+    5	  Electrónica, Audio y Video
+    6	  Consolas y videojuegos
+            </pre>
+          </div>
+
+          <br>
+          <b> Payload de productos y servicios: </b>
+          <br>
+          Los siguientes son los catálogos para se integrados en el payload de productos y servicios:
+          <br>
+          <br>
+          <b> Formato Json </b>
+          <div class="alert alert-light" role="alert">
+            <pre [innerHTML]="payloadJson"></pre>
+          </div>
+          <b> Formato XML </b>
+          <div class="alert alert-light" role="alert">
+            <pre>{{payloadXml}}</pre>
+          </div>
+        </div>
+
+        <b> Url para carga de datos </b>
+        <div class="form-group input-group" [ngClass]="{'has-danger': !loginForm.get('email').valid && loginForm.get('email').touched}">
+          <br>
+          <input class="form-control" formControlName="email" type="email" placeholder="Payload Url" required="">
+          <div *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" class="form-control-feedback">
+            La url de consumo de payload no puede estar vacía
+          </div>
+        </div>
+
+        <div class="text-center text-sm-right">
+          <button [disabled]="!loginForm.valid"class="btn btn-primary margin-bottom-none" type="submit">Consumir datos</button>
+          <button [disabled]="!loginForm.valid"class="btn btn-primary margin-bottom-none" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
 <hr>
