@@ -19,6 +19,8 @@ export class CartComponent implements OnInit, OnDestroy {
   public isOfferRequest = false;
   public isCart = false;
   public user = null;
+  public representative = null;
+  public offerStatus = null;
 
   constructor(
     private router: Router,
@@ -28,8 +30,11 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isRequest = this.activatedRoute.snapshot.params.isRequest;
     this.isOfferRequest = this.activatedRoute.snapshot.params.isOfferRequest;
     this.isCart = (!this.isOffer && !this.isOfferRequest && !this.isRequest);
+    this.representative = null;
+
     try {
       this.user = JSON.parse(atob(localStorage.getItem('user')));
+      this.representative = localStorage.getItem('representative');
     } catch (e) {
       console.info(e);
     }
@@ -91,12 +96,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.router.navigate(['/account/provider']);
   }
 
-  viewOfferRequest() {
-    if (this.user && (this.user['role'] === 'PROVIDER' || this.user['role'] === 'CLIENT')
-      && !this.readOnly) {
-      return true;
-    }
-    return false;
+  async chooseOffer() {
+    this.offerStatus = localStorage.getItem('offerStatus');
+    await this.cartService.chooseOffer(localStorage.getItem('offerId'));
+    this.router.navigate(['/account/client']);
   }
 
   ngOnDestroy() {

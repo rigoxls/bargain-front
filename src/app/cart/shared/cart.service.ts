@@ -149,4 +149,15 @@ export class CartService {
       });
   }
 
+  async chooseOffer(id) {
+    const formData = {id};
+    await this.http.post<any>(`${config.backUrl}offer/updateStatus`, formData).subscribe(data => {
+        this.messageService.add('Se ha elegido la oferta actual');
+      },
+      error => {
+        this.messageService.addError(error.error.message);
+        throw Error('Error');
+      });
+  }
+
 }

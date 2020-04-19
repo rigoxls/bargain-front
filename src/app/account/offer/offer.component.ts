@@ -48,7 +48,10 @@ export class OfferComponent implements OnInit, OnDestroy {
     this.requests = await this.providerService.getOffers(listOfferPath, this.user.id);
   }
 
-  feedCart(requestId) {
+  feedCart(requestId, representative, status) {
+    localStorage.setItem('representative', representative);
+    localStorage.setItem('offerId', requestId);
+    localStorage.setItem('offerStatus', status);
     this.providerService.feedCart(requestId);
     this.router.navigate(['/client/offer/true']);
   }

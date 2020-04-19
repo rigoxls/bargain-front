@@ -2,6 +2,14 @@
       <!-- Page Content-->
       <div class="container padding-bottom-3x mb-1">
 
+        <div *ngIf="representative">
+          <b>Proveedor Oferente:
+          <span class="text-info">
+            {{representative}}
+          </span>
+          </b>
+        </div>
+        <br>
         <!-- Shopping Cart-->
         <div class="table-responsive shopping-cart">
           <table class="table">
@@ -106,8 +114,8 @@
             <a class="btn btn-success" href="javascript:void(0)" (click)="sendOffer()">Enviar Oferta</a>
           </div>
 
-          <div class="column" *ngIf="isOfferRequest">
-            <a class="btn btn-success" href="javascript:void(0)" (click)="sendOffer()">Elegir Oferta</a>
+          <div class="column" *ngIf="isOfferRequest && offerStatus === 'PENDING'">
+            <a class="btn btn-success" href="javascript:void(0)" (click)="chooseOffer()">Elegir Oferta</a>
           </div>
         </div>
 
