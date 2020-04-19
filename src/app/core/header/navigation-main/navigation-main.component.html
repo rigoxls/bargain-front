@@ -32,13 +32,7 @@
       </li>
 
       <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
-        <a routerLink="/cart" href="">
-          <span>Ofertas</span>
-        </a>
-      </li>
-
-      <li routerLinkActive="active" *ngIf="user && user['role'] === 'PROVIDER'">
-        <a routerLink="/cart" href="">
+        <a routerLink="/account/provider" href="">
           <span>Mis Ofertas</span>
         </a>
       </li>
