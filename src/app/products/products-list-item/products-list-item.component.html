@@ -1,9 +1,12 @@
 <div class="product-card" [ngClass]="{'product-list': displayMode === 'list'}">
   <!--<div *ngIf="product.reduction" class="product-badge text-danger">{{ product.reduction }}% Off</div>-->
   <a class="product-thumb" [ngClass]="{'loading': imageLoading}" routerLink="/products/{{product.id}}">
-    <img [hidden]="imageLoading" (load)="onImageLoad()"
+    <img [hidden]="imageLoading" (load)="onImageLoad()" *ngIf="product.imageURLs.includes('product-images')"
          src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{product.imageURLs}}?alt=media"
          alt="{{product.name}}"/>
+
+    <img [hidden]="imageLoading" (load)="onImageLoad()" *ngIf="!product.imageURLs.includes('product-images')"
+         src="{{product.imageURLs}}"  alt="{{product.name}}"/>
   </a>
   <div class="product-info">
     <h3 class="product-title">

@@ -6,6 +6,7 @@ import beautify from 'xml-beautifier';
 
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-orders',
@@ -19,6 +20,7 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
   public connectionPubSub = null;
   public payloadJson = null;
   public payloadXml = null;
+  public payloadForm: FormGroup;
 
   constructor(
     public providerService: ExternalProviderService,
@@ -28,6 +30,9 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(atob(localStorage.getItem('user')));
     if (this.user) {
     }
+    this.payloadForm = new FormGroup({
+      payload: new FormControl(null, Validators.required)
+    });
 
     this.connectionPubSub = `
       async function rabbitMQBootstrap() {
@@ -69,6 +74,10 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  async onLogin() {
+    await this.providerService.savePayloadUrl(this.payloadForm.value.payload);
   }
 
 

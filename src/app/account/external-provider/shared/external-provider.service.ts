@@ -11,5 +11,17 @@ export class ExternalProviderService {
   ) {
   }
 
+  async savePayloadUrl(payloadUrl: string) {
+    const products = await this.http.get<any>(payloadUrl).toPromise();
+    const formData = {products};
+
+    this.http.post<any>(`${config.backUrl}product/createProducts`, formData).subscribe(response => {
+        return response;
+      },
+      error => {
+        this.messageService.addError(error.error.message);
+        throw Error('Error');
+      });
+  }
 
 }

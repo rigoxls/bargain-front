@@ -30,7 +30,9 @@
                 <td>
                   <div class="product-item">
                     <a class="product-thumb" routerLink="/products/{{item.product.id}}">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{item.product.imageURLs}}?alt=media"
+                      <img *ngIf="item.product.imageURLs.includes('product-images')" src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{item.product.imageURLs}}?alt=media"
+                           alt="Product">
+                      <img *ngIf="!item.product.imageURLs.includes('product-images')" src="{{item.product.imageURLs}}"
                            alt="Product">
                     </a>
                     <div class="product-info">

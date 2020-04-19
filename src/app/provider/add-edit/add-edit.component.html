@@ -47,7 +47,9 @@
 
         <div class="form-group row">
           <div class="col-10" *ngIf="product && product.imageURLs.length">
-            <img src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{product.imageURLs}}?alt=media" width="450">
+            <img *ngIf="product.imageURLs.includes('product-images')" src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{product.imageURLs}}?alt=media width="450""
+                 alt="Product">
+            <img *ngIf="!product.imageURLs.includes('product-images')" src="{{product.imageURLs}}" alt="Product" width="450">
           </div>
         </div>
 

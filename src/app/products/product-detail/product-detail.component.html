@@ -12,9 +12,14 @@
           <div class="product-gallery">
             <div class="product-gallery-image" [ngClass]="{'loading': !imagesLoaded.includes(activeImageUrl)}">
 
-                <img class="img-fluid"
+                <img class="img-fluid" *ngIf="product.imageURLs.includes('product-images')"
                      src="https://firebasestorage.googleapis.com/v0/b/bargain-online.appspot.com/o/{{product.imageURLs}}?alt=media"
                      alt="{{product.name}}" (load)="onImageLoad($event)">
+
+              <img class="img-fluid" *ngIf="!product.imageURLs.includes('product-images')"
+                   src="{{product.imageURLs}}"
+                   alt="{{product.name}}" (load)="onImageLoad($event)">
+
             </div>
           </div>
         </div>
