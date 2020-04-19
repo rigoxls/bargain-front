@@ -39,12 +39,12 @@ export class CartService {
       });
 
       if (!avoidMsg) {
-        this.messageService.add('Amount in cart changed for: ' + item.product.name);
+        this.messageService.add('Producto agregado: ' + item.product.name);
       }
     } else {
       this.cartItems.push(item);
       if (!avoidMsg) {
-        this.messageService.add('Added to cart: ' + item.product.name);
+        this.messageService.add('Producto agregado: ' + item.product.name);
       }
     }
     this.itemsChanged.emit(this.cartItems.slice());
@@ -60,7 +60,7 @@ export class CartService {
     const indexToRemove = this.cartItems.findIndex(element => element === item);
     this.cartItems.splice(indexToRemove, 1);
     this.itemsChanged.emit(this.cartItems.slice());
-    this.messageService.add('Deleted from cart: ' + item.product.name);
+    this.messageService.add('Producto eliminado de la cotización: ' + item.product.name);
   }
 
   public updateItemAmount(item: CartItem, newAmount: number) {
@@ -102,7 +102,8 @@ export class CartService {
     items.forEach(item => {
       products.push({
         productId: item.product.id,
-        quantity: item.amount
+        quantity: item.amount,
+        price: item.product.price
       });
     });
 

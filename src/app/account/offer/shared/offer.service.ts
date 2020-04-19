@@ -36,7 +36,7 @@ export class OfferService {
         name: product.Name,
         description: product.Description,
         price: product.Price_Offer,
-        imageURLs: product.imageURLs,
+        imageURLs: (product.Image.includes('product-images')) ? product.Image.replace('/', '%2F') : product.Image,
         idCatalogue: product.Id_Catalogue,
         imageRefs: [],
       }, 1);
