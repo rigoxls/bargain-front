@@ -1,4 +1,4 @@
-<app-page-title [title]="router.url === '/account/offer' ? 'Panel Proveedor' : 'Panel Cliente'"
+<app-page-title [title]="router.url !== '/account/client' ? 'Panel Proveedor' : 'Panel Cliente'"
                 [children]="[{title: 'Account', link: '/account'}, {title: 'Mi Panel'}]">
 </app-page-title>
 

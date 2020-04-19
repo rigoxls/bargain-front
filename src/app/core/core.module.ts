@@ -20,6 +20,7 @@ import {ProviderService} from '../account/provider/shared/provider.service';
 
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {OfferService} from '../account/offer/shared/offer.service';
+import {ExternalProviderService} from '../account/external-provider/shared/external-provider.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {OfferService} from '../account/offer/shared/offer.service';
     PagerService,
     ClientService,
     ProviderService,
+    ExternalProviderService,
     OfferService,
     AuthService,
     UiService

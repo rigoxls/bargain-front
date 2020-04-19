@@ -48,6 +48,9 @@
               <label></label>
               <input type="radio" id="reg-provider" name="userType" formControlName="userType" value="2" (click)="userTypeEvent(2)">
               <label for="reg-provider">Proveedor</label>
+              <label></label>
+              <input type="radio" id="reg-ext_provider" name="userType" formControlName="userType" value="3" (click)="userTypeEvent(3)">
+              <label for="reg-ext_provider">Proveedor Externo</label>
             </div>
           </div>
 
@@ -79,14 +82,14 @@
             </div>
           </div>
 
-          <div class="col-sm-12" *ngIf="userType === 2">
+          <div class="col-sm-12" *ngIf="userType !== 1">
             <div class="form-group" [ngClass]="{'has-danger': !registerForm.get('business_Name').valid && registerForm.get('business_Name').touched}">
               <label for="reg-bname">Razón Social</label>
               <input class="form-control" formControlName="business_Name" type="text" id="reg-bname" required>
             </div>
           </div>
 
-           <div class="col-sm-6" *ngIf="userType === 2">
+           <div class="col-sm-6" *ngIf="userType !== 1">
             <div class="form-group">
               <label for="reg-nit">Nit</label>
               <input class="form-control" formControlName="nit" type="number" id="reg-nit" required>
@@ -100,7 +103,7 @@
             </div>
           </div>
 
-          <div class="col-sm-12" *ngIf="userType === 2">
+          <div class="col-sm-12" *ngIf="userType !== 1">
             <div class="form-group" [ngClass]="{'has-danger': !registerForm.get('email').valid && registerForm.get('email').touched}">
               <label for="representative">Representante</label>
               <input class="form-control" formControlName="representative" type="text" id="representative" required>

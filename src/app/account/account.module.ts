@@ -9,12 +9,14 @@ import {RegisterLoginComponent} from './register-login/register-login.component'
 import {AccountComponent} from './account.component';
 import {ProviderComponent} from './provider/provider.component';
 import {OfferComponent} from './offer/offer.component';
+import {ExternalProviderComponent} from './external-provider/external-provider.component';
 
 @NgModule({
   declarations: [
     AccountComponent,
     ClientComponent,
     ProviderComponent,
+    ExternalProviderComponent,
     OfferComponent,
     RegisterLoginComponent
   ],

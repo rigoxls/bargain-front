@@ -13,6 +13,7 @@ import {ProductDetailComponent} from './products/product-detail/product-detail.c
 import {LogguedGuard} from './account/guards/loggued-guard';
 import {ProviderComponent} from './account/provider/provider.component';
 import {OfferComponent} from './account/offer/offer.component';
+import {ExternalProviderComponent} from './account/external-provider/external-provider.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/register-login', pathMatch: 'full'},
@@ -38,6 +39,7 @@ const routes: Routes = [
     children: [
       {path: 'client', component: ClientComponent},
       {path: 'provider', component: ProviderComponent},
+      {path: 'external-provider', component: ExternalProviderComponent},
       {path: 'offer/client', component: OfferComponent},
       {path: 'offer/provider', component: OfferComponent},
     ],

@@ -32,6 +32,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isCart = (!this.isOffer && !this.isOfferRequest && !this.isRequest);
     this.representative = null;
 
+    this.offerStatus = localStorage.getItem('offerStatus');
+
     try {
       this.user = JSON.parse(atob(localStorage.getItem('user')));
       this.representative = localStorage.getItem('representative');

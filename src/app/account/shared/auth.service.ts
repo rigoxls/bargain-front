@@ -28,11 +28,21 @@ export class AuthService {
     } catch (e) {
       logger.error(e);
     }
-
   }
 
   async emailSignUp(formData) {
-    formData.role = (formData.userType === 1) ? 'CLIENT' : 'PROVIDER';
+    switch (parseInt(formData.userType, 10)) {
+      case 1:
+        formData.role = 'CLIENT';
+        break;
+      case 2:
+        formData.role = 'PROVIDER';
+        break;
+      case 3:
+        formData.role = 'EXTERNAL_PROVIDER';
+        break;
+    }
+
     await this.http.post<any>(`${config.backUrl}auth/signup`, formData).subscribe(data => {
         this.messageService.add('Ha creado su cuenta de usuario satisfactoriamente, por favor proceda a realizar logIn');
       },
@@ -55,8 +65,10 @@ export class AuthService {
         localStorage.setItem('user', btoa(JSON.stringify(data)));
         if (data.role === 'CLIENT') {
           this.router.navigate(['/account/client']);
-        } else {
+        } else if (data.role === 'PROVIDER') {
           this.router.navigate(['/account/provider']);
+        } else if (data.role === 'EXTERNAL_PROVIDER') {
+          this.router.navigate(['/account/external-provider']);
         }
 
         return data;
