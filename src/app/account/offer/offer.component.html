@@ -7,7 +7,7 @@
         <th>Oferta #</th>
         <th>Fecha</th>
         <th>Estado</th>
-        <th>Proveedor Oferente</th>
+        <th *ngIf="router.url === '/account/offer/client'">Proveedor Oferente</th>
       </tr>
     </thead>
     <tbody *ngIf="requests">
@@ -19,7 +19,7 @@
         <td>
           <span class="text-info">{{request.status}}</span>
         </td>
-        <td>
+        <td *ngIf="router.url === '/account/offer/client'">
           <span>{{request.representative}}</span>
           <br>
           <span>{{request.email}}</span>

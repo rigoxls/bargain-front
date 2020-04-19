@@ -39,7 +39,13 @@ export class OfferComponent implements OnInit, OnDestroy {
   }
 
   async getOffers() {
-    this.requests = await this.providerService.getOffers();
+    let listOfferPath = null;
+    if (this.router.url === '/account/offer/client') {
+      listOfferPath = 'getByClient';
+    } else {
+      listOfferPath = 'getByProvider';
+    }
+    this.requests = await this.providerService.getOffers(listOfferPath, this.user.id);
   }
 
   feedCart(requestId) {

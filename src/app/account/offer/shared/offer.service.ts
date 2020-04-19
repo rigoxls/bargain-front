@@ -14,8 +14,8 @@ export class OfferService {
   ) {
   }
 
-  public async getOffers() {
-    const requests = await this.http.get<any>(`${config.backUrl}offer/`).toPromise();
+  public async getOffers(listOfferPath: string, userId: number) {
+    const requests = await this.http.get<any>(`${config.backUrl}offer/${listOfferPath}/${userId}`).toPromise();
     return requests.map(request => {
       return {
         id: request.Id,

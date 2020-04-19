@@ -21,8 +21,12 @@
           <i class="icon-bag"></i>Cotizaciones
         </a>
 
-        <a *ngIf="user && user.role === 'CLIENT'" class="list-group-item" routerLinkActive="active" routerLink="/account/offer">
+        <a *ngIf="user && user.role === 'CLIENT'" class="list-group-item" routerLinkActive="active" routerLink="/account/offer/client">
           <i class="icon-head"></i>Ofertas
+        </a>
+
+        <a *ngIf="user && user.role === 'PROVIDER'" class="list-group-item" routerLinkActive="active" routerLink="/account/offer/provider">
+          <i class="icon-head"></i>Mis Ofertas
         </a>
 
         <a *ngIf="user && user.role === 'PROVIDER'" class="list-group-item with-badge" routerLinkActive="active" routerLink="/account/provider" href="">

@@ -38,7 +38,8 @@ const routes: Routes = [
     children: [
       {path: 'client', component: ClientComponent},
       {path: 'provider', component: ProviderComponent},
-      {path: 'offer', component: OfferComponent},
+      {path: 'offer/client', component: OfferComponent},
+      {path: 'offer/provider', component: OfferComponent},
     ],
     canActivate: [LogguedGuard]
   },
