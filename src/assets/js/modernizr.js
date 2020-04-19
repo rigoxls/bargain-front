@@ -24,7 +24,7 @@
 
 ;(function(window, document, undefined){
   var tests = [];
-  
+
 
   /**
    *
@@ -73,7 +73,7 @@
     }
   };
 
-  
+
 
   // Fake some of Object.create so we can force non test results to be non "own" properties.
   var Modernizr = function() {};
@@ -83,10 +83,10 @@
   // Overwrite name so constructor name is nicer :D
   Modernizr = new Modernizr();
 
-  
+
 
   var classes = [];
-  
+
 
   /**
    * is returns a boolean if the typeof an obj is exactly type.
@@ -181,7 +181,7 @@
    */
 
   var docElement = document.documentElement;
-  
+
 
   /**
    * A convenience helper to check if the document we are running in is an SVG document
@@ -191,7 +191,7 @@
    */
 
   var isSVG = docElement.nodeName.toLowerCase() === 'svg';
-  
+
 
   /**
    * setClasses takes an array of class names and adds them to the root element
@@ -263,7 +263,7 @@
     }
   })();
 
-  
+
 
 
    // _l tracks listeners for async tests, as well as tests that execute after the initial run
@@ -470,7 +470,7 @@
     ModernizrProto.addTest = addTest;
   });
 
-  
+
 
 
   /**
@@ -490,11 +490,11 @@
    */
 
   var omPrefixes = 'Moz O ms Webkit';
-  
+
 
   var cssomPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.split(' ') : []);
   ModernizrProto._cssomPrefixes = cssomPrefixes;
-  
+
 
   /**
    * atRule returns a given CSS property at-rule (eg @keyframes), possibly in
@@ -561,7 +561,7 @@
 
   ModernizrProto.atRule = atRule;
 
-  
+
 
   /**
    * List of JavaScript DOM values used for tests
@@ -583,7 +583,7 @@
 
   var domPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.toLowerCase().split(' ') : []);
   ModernizrProto._domPrefixes = domPrefixes;
-  
+
 
   /**
    * createElement is a convenience wrapper around document.createElement. Since we
@@ -684,7 +684,7 @@
 
 
   ModernizrProto.hasEvent = hasEvent;
-  
+
 
 /**
   * @optionName html5printshiv
@@ -1433,7 +1433,7 @@
 
   ModernizrProto.mq = mq;
 
-  
+
 
 
   /**
@@ -1467,7 +1467,7 @@
     delete modElem.elem;
   });
 
-  
+
 
   var mStyle = {
     style: modElem.elem.style
@@ -1479,7 +1479,7 @@
     delete mStyle.style;
   });
 
-  
+
 
   /**
    * domToCSS takes a camelCase string and converts it to kebab-case
@@ -1783,7 +1783,7 @@
   // Modernizr.testAllProps('boxSizing')
   ModernizrProto.testAllProps = testPropsAll;
 
-  
+
 
   /**
    * prefixed returns the prefixed or nonprefixed property name variant of your input
@@ -1867,7 +1867,7 @@
     }
   };
 
-  
+
 
   /**
    * List of property values to set for css tests. See ticket #21
@@ -1908,7 +1908,7 @@
   // expose these for the plugin API. Look in the source for how to join() them against your input
   ModernizrProto._prefixes = prefixes;
 
-  
+
 
   /**
    * prefixedCSS is just like [prefixed](#modernizr-prefixed), but the returned values are in
@@ -1942,7 +1942,7 @@
     var prefixedProp = prefixed(prop);
     return prefixedProp && domToCSS(prefixedProp);
   };
-  
+
 
   /**
    * testAllProps determines whether a given CSS property is supported in the browser
@@ -1985,7 +1985,7 @@
     return testPropsAll(prop, undefined, undefined, value, skipValueTest);
   }
   ModernizrProto.testAllProps = testAllProps;
-  
+
 
   /**
    * testProp() investigates whether a given style property is recognized
@@ -2024,7 +2024,7 @@
   var testProp = ModernizrProto.testProp = function(prop, value, useValue) {
     return testProps([prop], undefined, value, useValue);
   };
-  
+
 
   /**
    * testStyles injects an element with style element and some CSS rules
@@ -2084,7 +2084,7 @@
    */
 
   var testStyles = ModernizrProto.testStyles = injectElementWithStyles;
-  
+
 /*!
 {
   "name": "a[download] Attribute",
@@ -5161,7 +5161,7 @@ Detect support for the bdi element, a way to have text that is isolated from its
    * @returns {HTMLInputElement}
    */
   var inputElem = createElement('input');
-  
+
 /*!
 {
   "name": "Input attributes",
@@ -7896,7 +7896,7 @@ Tests for XMLHttpRequest xhr.responseType.
     return 'response' in xhr && xhr.responseType == type;
   };
 
-  
+
 /*!
 {
   "name": "XHR responseType='arraybuffer'",
@@ -8276,7 +8276,7 @@ Detects support for querySelector.
 }
 !*/
 /* DOC
-Detects the ability to request a specific amount of space for filesystem access
+Detects the ability to client a specific amount of space for filesystem access
 */
 
   Modernizr.addTest('quotamanagement', function() {
@@ -8570,7 +8570,7 @@ Detects support for SVG in `<embed>` or `<object>` elements.
    */
 
   var toStringFn = ({}).toString;
-  
+
 /*!
 {
   "name": "SVG clip paths",

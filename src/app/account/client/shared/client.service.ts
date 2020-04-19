@@ -6,7 +6,7 @@ import {config} from '../../../shared/config';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class RequestService {
+export class ClientService {
   constructor(
     private messageService: MessageService,
     private cartService: CartService,

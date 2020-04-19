@@ -6,7 +6,7 @@ import {AddEditComponent} from './provider/add-edit/add-edit.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {ProviderGuard} from './provider/shared/provider.guard';
 import {RegisterLoginComponent} from './account/register-login/register-login.component';
-import {RequestComponent} from './account/request/request.component';
+import {ClientComponent} from './account/client/client.component';
 import {AccountComponent} from './account/account.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'products/:id', component: ProductDetailComponent},
   {path: 'cart', component: CartComponent},
   {path: 'provider/offer/:isOffer', component: CartComponent},
-  {path: 'client/request/:isRequest', component: CartComponent},
+  {path: 'client/client/:isRequest', component: CartComponent},
   {path: 'client/offer/:isOfferRequest', component: CartComponent},
   {path: 'provider/add', component: AddEditComponent, canActivate: [ProviderGuard]},
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
     path: 'account',
     component: AccountComponent,
     children: [
-      {path: 'requests', component: RequestComponent},
+      {path: 'client', component: ClientComponent},
       {path: 'provider', component: ProviderComponent},
       {path: 'offer', component: OfferComponent},
     ],

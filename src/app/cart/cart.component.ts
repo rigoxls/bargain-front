@@ -83,7 +83,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   async sendRequest() {
     await this.cartService.sendRequest();
-    this.router.navigate(['/account/requests']);
+    this.router.navigate(['/account/client']);
   }
 
   async sendOffer() {

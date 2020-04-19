@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {RequestService} from './shared/request.service';
+import {ClientService} from './shared/client.service';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../shared/auth.service';
 
@@ -8,16 +8,16 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss']
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.scss']
 })
-export class RequestComponent implements OnInit, OnDestroy {
+export class ClientComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription;
   private user: User;
   private requests: any;
 
   constructor(
-    public requestService: RequestService,
+    public requestService: ClientService,
     private authService: AuthService,
     private router: Router,
   ) {
@@ -44,7 +44,7 @@ export class RequestComponent implements OnInit, OnDestroy {
 
   feedCart(requestId) {
     this.requestService.feedCart(requestId);
-    this.router.navigate(['/client/request/true']);
+    this.router.navigate(['/client/client/true']);
   }
 
   ngOnDestroy() {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { AuthService } from './shared/auth.service';
 import { Router } from '@angular/router';
-import { RequestService } from './request/shared/request.service';
+import { ClientService } from './client/shared/client.service';
 
 import { User } from '../models/user.model';
 
@@ -17,7 +17,7 @@ export class AccountComponent {
   constructor(
     private authService: AuthService,
     public router: Router,
-    public orderService: RequestService
+    public orderService: ClientService
   ) {
     try {
       this.user = JSON.parse(atob(localStorage.getItem('user')));

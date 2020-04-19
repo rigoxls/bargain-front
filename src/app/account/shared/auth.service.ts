@@ -54,7 +54,7 @@ export class AuthService {
         }, 50);
         localStorage.setItem('user', btoa(JSON.stringify(data)));
         if (data.role === 'CLIENT') {
-          this.router.navigate(['/account/requests']);
+          this.router.navigate(['/account/client']);
         } else {
           this.router.navigate(['/account/provider']);
         }
