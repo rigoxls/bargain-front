@@ -54,6 +54,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   async getProducts() {
     this.productsLoading = true;
     this.products = await this.productService.getProducts();
+
+    if (this.user && (this.user.role === 'PROVIDER' || this.user.role === 'EXTERNAL_PROVIDER')) {
+      this.products = this.products.filter(prod => {
+        return prod.userId === this.user.id;
+      });
+    }
+
     this.setPage(this.currentPagingPage);
     this.productsLoading = false;
   }

@@ -69,6 +69,7 @@ export class ProductService {
         description: product.Description,
         price: product.Price,
         idCatalogue: product.Id_Catalogue,
+        userId: product.User_Id,
         imageURLs: (product.Image.includes('product-images')) ? product.Image.replace('/', '%2F') : product.Image
       };
     });
