@@ -10,6 +10,7 @@ import {AccountComponent} from './account.component';
 import {ProviderComponent} from './provider/provider.component';
 import {OfferComponent} from './offer/offer.component';
 import {ExternalProviderComponent} from './external-provider/external-provider.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ExternalProviderComponent} from './external-provider/external-provider.c
     CommonModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot()
   ],
   exports: [
     SharedModule

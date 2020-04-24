@@ -38,6 +38,7 @@ const routes: Routes = [
     component: AccountComponent,
     children: [
       {path: 'client', component: ClientComponent},
+      {path: 'stats', component: ClientComponent},
       {path: 'provider', component: ProviderComponent},
       {path: 'external-provider', component: ExternalProviderComponent},
       {path: 'offer/client', component: OfferComponent},
