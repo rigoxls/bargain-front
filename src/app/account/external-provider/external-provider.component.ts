@@ -21,6 +21,7 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
   public payloadJson = null;
   public payloadXml = null;
   public payloadForm: FormGroup;
+  public dataType = 1;
 
   constructor(
     public providerService: ExternalProviderService,
@@ -31,7 +32,8 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
     if (this.user) {
     }
     this.payloadForm = new FormGroup({
-      payload: new FormControl(null, Validators.required)
+      payload: new FormControl(null, Validators.required),
+      dataType: new FormControl(null, Validators.required),
     });
 
     this.connectionPubSub = `
@@ -45,24 +47,29 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
     }`;
 
     this.payloadJson = `
-        {
+        [{
           "id": 1,
+          "userId": ${this.user.id},
           "catalogId": 1,
           "price": 50000,
           "name": "Product 1",
           "description": "Product 1 description",
-          "imageUrl": "https://www.psdmockups.com/wp-content/uploads/2017/08/Square-Corrugated-Cardboard-Shipping-Box-PSD-Mockup-520x392.jpg",
-          "createDate": 1586369231251
-        }`;
+          "imageUrl": "https://www.psdmockups.com/wp-content/uploads/2017/08/Square-Corrugated-Cardboard-Shipping-Box-PSD-Mockup-520x392.jpg"
+        }]`;
 
     this.payloadXml = beautify(`
       <?xml version="1.0" encoding="UTF-8"?>
-      <note>
-        <to>Tove</to>
-        <from>Jani</from>
-        <heading>Reminder</heading>
-        <body>Don't forget me this weekend!</body>
-      </note>`);
+      <Products>
+        <Product>
+          <id>1</id>
+          <userId>${this.user.id}</userId>
+          <catalogId>1</catalogId>
+          <price>5000</price>
+          <name>Product 1</name>
+          <description>Product 1 description</heading>
+          <imageUrl>https://www.psdmockups.com/wp-content/uploads/2017/08/Square-Corrugated-Cardboard-Shipping-Box-PSD-Mockup-520x392.jpg</imageUrl>
+        </Product>
+      </Products>`);
   }
 
   ngOnInit() {
@@ -76,10 +83,13 @@ export class ExternalProviderComponent implements OnInit, OnDestroy {
     );
   }
 
-  async onLogin() {
-    await this.providerService.savePayloadUrl(this.payloadForm.value.payload);
+  async submit() {
+    await this.providerService.savePayloadUrl(this.payloadForm.value.payload, this.dataType);
   }
 
+  dataTypeEvent(type) {
+    this.dataType = type;
+  }
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
