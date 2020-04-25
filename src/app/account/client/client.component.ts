@@ -6,9 +6,6 @@ import {AuthService} from '../shared/auth.service';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 
-import {ChartsModule, WavesModule} from 'angular-bootstrap-md';
-
-
 @Component({
   selector: 'app-orders',
   templateUrl: './client.component.html',

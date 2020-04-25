@@ -23,7 +23,7 @@ export class ClientService {
         status: request.Status,
         date: request.Creation_Date
       };
-    });
+    }).reverse();
   }
 
   async feedCart(requestId) {

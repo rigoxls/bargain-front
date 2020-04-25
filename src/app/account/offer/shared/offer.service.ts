@@ -24,7 +24,7 @@ export class OfferService {
         representative: request.representative,
         date: request.Creation_Date
       };
-    });
+    }).reverse();
   }
 
   async feedCart(requestId) {
